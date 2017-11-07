@@ -57,5 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
-musicstore/bin
-musicstore/obj/Debug
+musicstore/FirstREST/bin
+musicstore/FirstREST/obj/Debug
