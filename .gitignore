@@ -1,6 +1,3 @@
-# Manually added
-musicstore/FirstREST/bin
-
 # Logs
 logs
 *.log
@@ -60,5 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
-musicstore/musicstore/bin
-musicstore/musicstore/obj/Debug
+musicstore/bin
+musicstore/obj/Debug
