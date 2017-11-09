@@ -17,6 +17,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/geek.html',
 			controller: 'GeekController'	
 		})
+
+		.when('/signin', {
+			templateUrl: 'views/signin.html',
+			controller: 'NavBarController'	
+		})
+
         .when('/product', {
             templateUrl: 'views/product.html',
             controller: 'ProductController'
