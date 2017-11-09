@@ -1,10 +1,10 @@
 angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope) {
 
     $scope.signin = function(){
-        $scope.user = {
-            username: username
+        $scope.$parent.user = {
+            name: $scope.username
         }
-        $scope.logged = true;
+        $scope.$parent.logged = true;
     }
 
 });
