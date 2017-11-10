@@ -1,3 +1,6 @@
+.navbar-brand{
+    font-family: 'Dosis', sans-serif;
+}
 .navbar.navbar-default{
     background-color: #033076;
 }
