@@ -174,3 +174,9 @@ body {
 footer {
     margin: 50px 0;
 }
+.orderHist {
+    padding-left: 30px;
+}
+.orderHist a{
+    color: #033076;
+}
