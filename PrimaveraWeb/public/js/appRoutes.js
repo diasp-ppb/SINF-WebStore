@@ -23,6 +23,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'NavBarController'	
 		})
 
+		.when('/profile', {
+			templateUrl: 'views/profile.html',
+			controller: 'ProfileController'	
+		})
+
         .when('/product', {
             templateUrl: 'views/product.html',
             controller: 'ProductController'

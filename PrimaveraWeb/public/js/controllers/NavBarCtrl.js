@@ -1,4 +1,4 @@
-angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope) {
+angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $window) {
 
     $scope.signin = function(){
         $scope.$parent.user = {
