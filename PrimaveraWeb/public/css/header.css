@@ -1,0 +1,45 @@
+.navbar.navbar-default{
+    background-color: #033076;
+}
+#bs-example-navbar-collapse-1 a{
+    color: white;
+}
+#header1{
+    border-bottom: solid rgb(230, 22, 16);
+}
+.navbar.navbar-default a{
+    color: white;
+    /* color: rgb(230,22,16)red rgb(226,236,254) lblue*/
+}
+.navbar.navbar-default .navbar-header a:hover{
+    font-weight: bold;
+    color: white;
+    /* color: rgb(230,22,16)red rgb(226,236,254) lblue*/
+}
+@media screen and (max-width: 850px){
+    #bs-example-navbar-collapse-1 .form-group{
+        width: 250px;
+    }
+    #bs-example-navbar-collapse-1 input.form-control{
+        width: 250px;
+    }
+}
+#bs-example-navbar-collapse-1 input.form-control{
+    border-radius: 50px;
+}
+.navbar.navbar-default .related, .navbar.navbar-default .related a{
+    background-color: rgb(226,236,254);
+    color: #033076;
+}
+.related ul{
+    list-style-type: none;
+    margin: 0;
+}
+.related li{
+    float: left;
+}
+.related li a{
+    display: block;
+    text-align: center;
+    padding-right: 36px;
+}
