@@ -55,8 +55,8 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
-
-        public string Author
+        
+        public string Autor
         {
             get;
             set;

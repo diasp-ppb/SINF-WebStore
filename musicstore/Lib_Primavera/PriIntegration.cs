@@ -319,11 +319,11 @@ namespace FirstREST.Lib_Primavera
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
                 string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist ";
-                string from1 = "FROM ((( ARTIGO INNER JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
-                string from2 = "INNER JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
-                string from3 = "INNER JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
-                string from4 = "INNER JOIN DISTRITOS ON Armazens.Distrito = Distritos.Distrito ";
-                string whereS = "WHERE Artigo.Artigo = 'MARIJUANA'";//TODO evitar sqlinjection maybe hmm
+                string from1 = "FROM ((( ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
+                string from2 = "LEFT JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
+                string from3 = "LEFT JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
+                string from4 = "LEFT JOIN DISTRITOS ON Armazens.Distrito = Distritos.Distrito ";
+                string whereS = "WHERE Artigo.Artigo = '" + id + "'";//TODO evitar sqlinjection maybe hmm
                 string queryS = select + from1 + from2 + from3 + from4 + whereS;
 
                 if (PriEngine.Engine.Comercial.Artigos.Existe(id) == false)
