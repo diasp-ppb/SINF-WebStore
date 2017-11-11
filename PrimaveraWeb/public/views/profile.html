@@ -24,8 +24,8 @@
 					<ul class="nav">
 						<li id="overview" class="profileMenu active">
 							<a ng-click="changeView('overview')" href="#">
-								<i class="glyphicon glyphicon-home"></i>
-								Overview </a>
+								<i class="glyphicon glyphicon-home"></i>Overview
+                            </a>
 						</li>
 						<li id="wishlist" class="profileMenu">
 							<a ng-click="changeView('wishlist')" href="#">
@@ -60,25 +60,11 @@
 				<div ng-show="showHistory">
                     <h1 class="profile-content-title">Order History</h1>
                     <br>
-                    <div class="orderHist">
-                        <h3 class="text-muted">Total of orders: {{totalOrders}}</h3>
-                        <ul>
-                            <li ng-repeat="order in historyList">
-                                <p id={{order.orderId}}>
-                                    Ordered on {{order.date}} with a total of {{order.orderPrice}}
-                                <ul>
-                                    <li ng-repeat="prod in order.products">
-                                        <a href="/product?id={{prod.id}}">{{prod.name}} for {{prod.price}}</a>
-                                    </li>
-                                </ul>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
+                    <div ng-include="'views/profileContent/orderHistory.html'"></div>
 				</div>
 				<div ng-show="showOrders">
-						<h1 class="profile-content-title">Active Orders</h1>
-						{{content}}
+                    <h1 class="profile-content-title">Active Orders</h1>
+                    {{content}}
 				</div>
 			</div>
 		</div>

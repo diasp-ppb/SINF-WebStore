@@ -1,0 +1,75 @@
+<div class="container" ng-controller="NavBarController">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108"
+                         class="img-responsive" alt="" style="    width: 250px; height: 250px;">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        User Name
+                        <span class="fa fa-envelope small pull-right"> </span>
+                    </div>
+                    <div class="profile-usertitle-edit">
+                        <h4 class="display-3 adminView"> Administrator View </h4>
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li id="dashboard" class="profileMenu active">
+                            <a ng-click="changeViewAdmin('dashboard')" href="#">
+                                <i class="glyphicon glyphicon-home"></i>Dashboard
+                            </a>
+                        </li>
+                        <li id="sales" class="profileMenu">
+                            <a ng-click="changeViewAdmin('sales')" href="#">
+                                <i class="glyphicon glyphicon-th-list"></i>Sales
+                            </a>
+                        </li>
+                        <li id="warehouse" class="profileMenu">
+                            <a ng-click="changeViewAdmin('warehouse')" href="#">
+                                <i class="glyphicon glyphicon-ok"></i>Warehouses
+                            </a>
+                        </li>
+                        <li id="stock" class="profileMenu">
+                            <a ng-click="changeViewAdmin('stock')" href="#">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>Stock
+                            </a>
+                        </li>
+                        <li id="newProd" class="profileMenu">
+                            <a ng-click="changeViewAdmin('newProd')" href="#">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>Create Product
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-8">
+            <div id="profile-content">
+                <div ng-show="showDash">
+                    <h1 class="profile-content-title">{{content}}</h1>
+                </div>
+                <div ng-show="showSales">
+                    <h1 class="profile-content-title">{{content}}</h1>
+                </div>
+                <div ng-show="showWarehouse">
+                    <h1 class="profile-content-title">{{content}}</h1>
+                </div>
+                <div ng-show="showStock">
+                    <h1 class="profile-content-title">{{content}}</h1>
+                </div>
+                <div ng-show="showNewP">
+                    <h1 class="profile-content-title">{{content}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

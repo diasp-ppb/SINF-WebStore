@@ -28,6 +28,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'ProfileController'	
 		})
 
+        .when('/admin', {
+            templateUrl: 'views/admin.html',
+            controller: 'AdminController'
+        })
+
         .when('/product', {
             templateUrl: 'views/product.html',
             controller: 'ProductController'
