@@ -309,6 +309,44 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+
+        public static List<Model.Artigo> ListaTopArtigos(int ranking)
+        {
+
+            StdBELista objList;
+
+            Model.Artigo art = new Model.Artigo();
+            List<Model.Artigo> listArts = new List<Model.Artigo>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                
+                objList = PriEngine.Engine.Consulta(" SELECT top 6 Artigo.Artigo, Descricao, PVP1, Iva, Artigo.STKActual FROM  Artigo INNER JOIN ArtigoMoeda ON Artigo.Artigo = ArtigoMoeda.Artigo GROUP BY Artigo.Artigo, Descricao, PVP1, Iva, Artigo.STKActual ORDER BY Artigo.STKActual DESC");
+
+                while (!objList.NoFim() )
+                {
+                    art = new Model.Artigo();
+                    art.CodArtigo = objList.Valor("artigo");
+                    art.DescArtigo = objList.Valor("descricao");
+                    art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * ( 1 + Convert.ToDouble(objList.Valor("Iva"))*0.01);
+
+                    double test = (Convert.ToDouble(objList.Valor("Iva"))*0.01);
+
+                    listArts.Add(art);
+                    objList.Seguinte();
+                }
+
+                return listArts;
+
+            }
+            else
+            {
+                return null;
+
+            }
+
+        }
+
         #endregion Artigo
 
    

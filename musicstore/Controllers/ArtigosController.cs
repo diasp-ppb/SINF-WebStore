@@ -15,12 +15,16 @@ namespace FirstREST.Controllers
     {
         //
         // GET: /Artigos/
-
         public IEnumerable<Lib_Primavera.Model.Artigo> Get()
         {
             return Lib_Primavera.PriIntegration.ListaArtigos();
         }
 
+        
+        public IEnumerable<Lib_Primavera.Model.Artigo> GetTop(int ranking)
+        {
+            return Lib_Primavera.PriIntegration.ListaTopArtigos(ranking);
+        }
 
         // GET api/artigo/5    
         public Artigo Get(string id)

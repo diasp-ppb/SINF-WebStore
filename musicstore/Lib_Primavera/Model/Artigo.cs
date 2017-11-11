@@ -25,5 +25,10 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public double PrecoFinal
+        {
+            get;
+            set;
+        }
     }
 }
