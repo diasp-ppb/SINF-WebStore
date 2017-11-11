@@ -1,5 +1,15 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
+angular.module('MainCtrl', []).controller('MainController', function($scope,$http) {
 
-	$scope.tagline = 'To the moon and back!';	
+    $http.get("http://localhost:8080", {
+        headers: {
+            "content-type" : "application/json"
+        }
+    }).then(function(response) {
+        // Request completed successfully
+        console.log(response);
+    }, function (x) {
+        console.log(x);
+    });
 
+    
 });
