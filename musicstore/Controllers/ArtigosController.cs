@@ -29,7 +29,7 @@ namespace FirstREST.Controllers
         // GET api/artigo/5    
         public Artigo Get(string id)
         {
-            Lib_Primavera.Model.Artigo artigo = Lib_Primavera.PriIntegration.GetArtigo(id);
+            Lib_Primavera.Model.Artigo artigo = Lib_Primavera.PriIntegration.GetArtigoFull(id);
             if (artigo == null)
             {
                 throw new HttpResponseException(

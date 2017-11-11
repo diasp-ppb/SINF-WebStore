@@ -309,6 +309,62 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static Model.Artigo GetArtigoFull(string id)
+        {
+
+            StdBELista objList;
+
+            Model.Artigo art = new Model.Artigo();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist ";
+                string from1 = "FROM ((( ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
+                string from2 = "LEFT JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
+                string from3 = "LEFT JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
+                string from4 = "LEFT JOIN DISTRITOS ON Armazens.Distrito = Distritos.Distrito ";
+                string whereS = "WHERE Artigo.Artigo = '" + id + "'";//TODO evitar sqlinjection maybe hmm
+                string queryS = select + from1 + from2 + from3 + from4 + whereS;
+
+                if (PriEngine.Engine.Comercial.Artigos.Existe(id) == false)
+                {
+                    return null;
+                }
+
+                objList = PriEngine.Engine.Consulta(queryS);
+                bool inicio = true;
+
+                while (!objList.NoFim())
+                {
+                    if (inicio)
+                    {
+                        art.Observacoes = objList.Valor("observacoes");
+                        art.DescArtigo = objList.Valor("descricao");
+                        art.STKAtual = objList.Valor("stkactual");
+                        art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
+                        art.Distritos = new List<string>();
+                        art.Localidades = new List<string>();
+                        art.STKArm = new List<double>();
+                        inicio = false;
+                    }
+
+                    art.Distritos.Add(objList.Valor("dist"));
+                    art.Localidades.Add(objList.Valor("localidade"));
+                    art.STKArm.Add(objList.Valor("stklocal"));
+
+                    objList.Seguinte();
+                }
+
+                return art;
+
+            }
+            else
+            {
+                return null;
+
+            }
+
+        }
 
         public static List<Model.Artigo> ListaTopArtigos(int ranking)
         {
