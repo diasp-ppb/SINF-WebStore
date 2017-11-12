@@ -7,8 +7,6 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
     $scope.showStock= false;
     $scope.showNewP = false;
 
-    $scope.stockList = [];
-
     $scope.changeViewAdmin = function (val) {
 
         $scope.showDash = false;
@@ -16,6 +14,8 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
         $scope.showWarehouse = false;
         $scope.showStock= false;
         $scope.showNewP = false;
+
+        $scope.stockList = [];
 
         document.getElementById('dashboard').classList.remove('active');
         document.getElementById('sales').classList.remove('active');
