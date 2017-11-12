@@ -403,6 +403,46 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static Lib_Primavera.Model.RespostaErro InsereArtigoObj(Model.Artigo art)
+        {
+
+            Lib_Primavera.Model.RespostaErro erro = new Model.RespostaErro();
+
+
+            GcpBEArtigo myArt = new GcpBEArtigo();
+
+            try
+            {
+                if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+                {
+
+                    myArt.set_Artigo(art.CodArtigo);
+                    myArt.set_Descricao(art.DescArtigo);
+
+                    PriEngine.Engine.Comercial.Artigos.Actualiza(myArt);
+
+                    erro.Erro = 0;
+                    erro.Descricao = "Sucesso";
+                    return erro;
+                }
+                else
+                {
+                    erro.Erro = 1;
+                    erro.Descricao = "Erro ao abrir empresa";
+                    return erro;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                erro.Erro = 1;
+                erro.Descricao = ex.Message;
+                return erro;
+            }
+
+
+        }
+
         #endregion Artigo
 
    

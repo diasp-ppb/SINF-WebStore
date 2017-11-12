@@ -2,18 +2,9 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108"
-                         class="img-responsive" alt="" style="    width: 250px; height: 250px;">
-                </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        User Name
-                        <span class="fa fa-envelope small pull-right"> </span>
-                    </div>
                     <div class="profile-usertitle-edit">
                         <h4 class="display-3 adminView"> Administrator View </h4>
                     </div>
@@ -68,6 +59,8 @@
                 </div>
                 <div ng-show="showNewP">
                     <h1 class="profile-content-title">{{content}}</h1>
+                    <br>
+                    <div ng-include="'views/adminContent/newProduct.html'"></div>
                 </div>
             </div>
         </div>
