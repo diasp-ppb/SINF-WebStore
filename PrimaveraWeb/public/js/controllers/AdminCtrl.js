@@ -35,6 +35,7 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
             $scope.data = [300, 500, 100];
 
         }else if (val === 'warehouse') {
+            $scope.content = "Warehouses";
             $scope.showWarehouse = true;
             document.getElementById('warehouse').classList.add('active');
 
@@ -53,5 +54,9 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
 
         }
 
+    }
+
+    $scope.updateStock = function(prod){
+        console.log(prod.id + " " + prod.stk);
     }
 });

@@ -8,6 +8,7 @@
                     <th>Product</th>
                     <th>Quantity</th>
                     <th class="text-center">Price</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody ng-repeat="prod in warehouse.products">
@@ -21,9 +22,14 @@
                         </div>
                     </td>
                     <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input class="form-control" id="exampleInputEmail1" value="{{prod.stk}}" type="number" min="0" step="1">
+                        <input class="form-control" value="{{prod.stk}}" type="number" min="0" step="1" ng-model="prod.stk">
                     </td>
                     <td class="col-sm-1 col-md-1 text-center"><strong>{{prod.price}}€</strong></td>
+                    <td class="col-sm-1 col-md-1">
+                        <button type="button" class="btn" ng-click="updateStock(prod)">
+                            <span class="glyphicon glyphicon-check"></span> Save
+                        </button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
