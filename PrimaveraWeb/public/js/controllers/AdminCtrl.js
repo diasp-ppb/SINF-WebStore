@@ -1,11 +1,13 @@
 angular.module('AdminCtrl', []).controller('AdminController', function ($scope) {
-    $scope.content = "Administrator Dashboard";
+    $scope.content = "Dashboard";
 
     $scope.showDash = true;
     $scope.showSales = false;
     $scope.showWarehouse = false;
     $scope.showStock= false;
     $scope.showNewP = false;
+
+    $scope.stockList = [];
 
     $scope.changeViewAdmin = function (val) {
 
@@ -22,24 +24,30 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
         document.getElementById('newProd').classList.remove('active');
 
         if (val === 'dashboard') {
-            $scope.content = "Administrator Dashboard";
+            $scope.content = "Dashboard";
             $scope.showDash = true;
             document.getElementById('dashboard').classList.add('active');
         } else if (val === 'sales') {
-            $scope.content = "Sales numbers";
             $scope.showSales = true;
             document.getElementById('sales').classList.add('active');
+
+            $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+            $scope.data = [300, 500, 100];
+
         }else if (val === 'warehouse') {
-            $scope.content = "Warehouse Details";
             $scope.showWarehouse = true;
             document.getElementById('warehouse').classList.add('active');
+
         } else if (val === 'stock') {
-            $scope.content = "Stock Management Board";
             $scope.showStock = true;
             document.getElementById('stock').classList.add('active');
 
+            for(var i = 0; i < 3; i++){
+                var products = [{id: 3, name: 'Darkside',price: '9.99', stk: 2,  img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'},{id: 47, name: 'Nonagon Infinity', price: '0.10', stk: 4,  img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'}];
+                $scope.stockList.push({name: i, products: products});
+            }
+
         } else if (val === 'newProd') {
-            $scope.content = "Add new Product";
             $scope.showNewP = true;
             document.getElementById('newProd').classList.add('active');
 

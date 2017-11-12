@@ -49,16 +49,21 @@
                     <h1 class="profile-content-title">{{content}}</h1>
                 </div>
                 <div ng-show="showSales">
-                    <h1 class="profile-content-title">{{content}}</h1>
+                    <h1 class="profile-content-title">Sale Numbers</h1>
+                    <canvas id="doughnut" class="chart chart-doughnut"
+                            chart-data="data" chart-labels="labels">
+                    </canvas>
                 </div>
                 <div ng-show="showWarehouse">
                     <h1 class="profile-content-title">{{content}}</h1>
                 </div>
                 <div ng-show="showStock">
-                    <h1 class="profile-content-title">{{content}}</h1>
+                    <h1 class="profile-content-title">Stock Management Board</h1>
+                    <br>
+                    <div ng-include="'views/adminContent/stockList.html'"></div>
                 </div>
                 <div ng-show="showNewP">
-                    <h1 class="profile-content-title">{{content}}</h1>
+                    <h1 class="profile-content-title">Add new Product</h1>
                     <br>
                     <div ng-include="'views/adminContent/newProduct.html'"></div>
                 </div>
