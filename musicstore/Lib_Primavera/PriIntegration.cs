@@ -318,13 +318,15 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist ";
+                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist, Familias.Descricao as familia, SubFamilias.Descricao as subfamilia ";
                 string from1 = "FROM ((( ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
                 string from2 = "LEFT JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
                 string from3 = "LEFT JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
                 string from4 = "LEFT JOIN DISTRITOS ON Armazens.Distrito = Distritos.Distrito ";
+                string from5 = "LEFT JOIN FAMILIAS ON Artigo.Familia = Familias.Familia ";
+                string from6 = "LEFT JOIN SUBFAMILIAS ON Artigo.Familia = SubFamilias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia ";
                 string whereS = "WHERE Artigo.Artigo = '" + id + "'";//TODO evitar sqlinjection maybe hmm
-                string queryS = select + from1 + from2 + from3 + from4 + whereS;
+                string queryS = select + from1 + from2 + from3 + from4 + from5 + from6 + whereS;
 
                 if (PriEngine.Engine.Comercial.Artigos.Existe(id) == false)
                 {
@@ -341,10 +343,12 @@ namespace FirstREST.Lib_Primavera
                         art.Observacoes = objList.Valor("observacoes");
                         art.DescArtigo = objList.Valor("descricao");
                         art.STKAtual = objList.Valor("stkactual");
+                        art.Familia = objList.Valor("familia");
+                        art.SubFamilia = objList.Valor("subfamilia");
                         art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
                         art.Distritos = new List<string>();
                         art.Localidades = new List<string>();
-                        art.STKArm = new List<double>();
+                        art.STKArm = new List<dynamic>();
                         inicio = false;
                     }
 

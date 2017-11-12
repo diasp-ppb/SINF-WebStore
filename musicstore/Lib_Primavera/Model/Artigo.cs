@@ -50,12 +50,24 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
         
-        public List<double> STKArm
+        public List<dynamic> STKArm
         {
             get;
             set;
         }
-        
+
+        public string Familia
+        {
+            get;
+            set;
+        }
+
+        public string SubFamilia
+        {
+            get;
+            set;
+        }
+       
         public string Autor
         {
             get;
