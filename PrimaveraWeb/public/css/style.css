@@ -183,3 +183,14 @@ footer {
 .adminView{
     color: rgb(230, 22, 16);
 }
+.dblue{
+	background-color: #033076;
+	border-color: #033076;
+}
+.lblue{
+	background-color: rgb(226,236,254);
+}
+.cred{
+	background-color: rgb(230,22,16);
+	border-color:  rgb(230,22,16);
+}

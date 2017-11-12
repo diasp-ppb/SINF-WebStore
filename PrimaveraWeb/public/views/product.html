@@ -59,7 +59,7 @@
                 <h6 class="quantity-to-add">QUANTITY</h6>
                 <div class="input-group col-md-12">
                                     <span class="input-group-btn">
-                                        <button ng-click="changePrice(-1)" type="button" class="quantity-left-minus btn btn-danger btn-number"
+                                        <button ng-click="changePrice(-1)" type="button" class="quantity-left-minus btn btn-danger btn-number cred"
                                                 data-type="minus" data-field="">
                                           <span class="glyphicon glyphicon-minus"></span>
                                         </button>
@@ -67,27 +67,26 @@
                     <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{amount}}"
                            min="1" max="100">
                     <span class="input-group-btn">
-                                        <button ng-click="changePrice(1)" type="button" class="quantity-right-plus btn btn-success btn-number"
+                                        <button ng-click="changePrice(1)" type="button" class="quantity-right-plus btn btn-success btn-number dblue"
                                                 data-type="plus" data-field="">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
                                     </span>
                 </div>
 
-                <button class="col-md-12 add-to-cart btn btn-success">
+                <button class="col-md-12 add-to-cart btn btn-success dblue">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"/>
                     Add to cart
                 </button>
 
-                <button class="col-md-12 separate-buttons btn btn-info">
+                <button class="col-md-12 separate-buttons btn btn-info cred">
                     <span class="glyphicon  glyphicon-heart" aria-hidden="true"/>
                     Add to wishlist
                 </button>
 
                 <div class="storages-availability">
-					<h4 class="list-group-item storages-availability-item">
-                        AVAILABILIY
-                        <span class="glyphicon glyphicon-check" aria-hidden="true"/>
+					<h4 class="list-group-item storages-availability-item lblue">
+                        AVAILABILITY
                     </h4>
                     <ul ng-repeat="local in availability" class="list-group">
                         <li class="list-group-item storages-availability-item">
