@@ -32,13 +32,18 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 			var dist = response.data.Distritos[i];
 			var loc = response.data.Localidades[i];
 			if(stock[i] !== undefined && stock[i] > 0){
-				if(dist !== undefined){
-					$scope.availability.push(dist);
+				if(dist !== undefined && dist !== ""){
+					if(!$scope.availability.includes(dist))
+						$scope.availability.push(dist);
 				}
-				else if(loc !== undefined){
-					$scope.availability.push(loc);
+				else if(loc !== undefined && loc !== ""){
+					if(!$scope.availability.includes(loc))
+						$scope.availability.push(loc);
 				}
 			}
+		}
+		if($scope.availability.length === 0){
+			$scope.availability.push('Not Available!');
 		}
     }, function (x) {
     });
