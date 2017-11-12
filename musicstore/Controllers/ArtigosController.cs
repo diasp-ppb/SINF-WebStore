@@ -36,15 +36,7 @@ namespace FirstREST.Controllers
         public Artigo Get(string id)
         {
             Lib_Primavera.Model.Artigo artigo = Lib_Primavera.PriIntegration.GetArtigoFull(id);
-            if (artigo == null)
-            {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.NotFound));
-            }
-            else
-            {
-                return artigo;
-            }
+            return artigo;
         }
 
     }
