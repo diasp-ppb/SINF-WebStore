@@ -4,14 +4,14 @@
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108"
+					<img src="{{user.img}}"
 					 class="img-responsive" alt="" style="    width: 250px; height: 250px;">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						User Name
+						{{user.name}}
 						<span class="fa fa-envelope small pull-right"> </span>
 					</div>
 					<div class="profile-usertitle-edit">
@@ -54,8 +54,9 @@
 					{{content}}
 				</div>
 				<div ng-show="showWishList">
-						<h1 class="profile-content-title">WishList</h1>
-						{{content}}
+					<h1 class="profile-content-title">WishList</h1>
+					<br>
+					<div ng-include="'views/profileContent/wishlist.html'"></div>
 				</div>
 				<div ng-show="showHistory">
                     <h1 class="profile-content-title">Order History</h1>
@@ -64,7 +65,8 @@
 				</div>
 				<div ng-show="showOrders">
                     <h1 class="profile-content-title">Active Orders</h1>
-                    {{content}}
+					<br>
+					<div ng-include="'views/profileContent/activeOrders.html'"></div>
 				</div>
 			</div>
 		</div>

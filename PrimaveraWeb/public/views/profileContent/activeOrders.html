@@ -1,0 +1,15 @@
+<div class="orderHist">
+    <h3 class="text-muted">Total of orders: {{totalOrders}}</h3>
+    <ul>
+        <li ng-repeat="order in activeOrders">
+            <p id={{order.orderId}}>
+                Ordered on {{order.date}} with a total of {{order.orderPrice}}
+            <ul>
+                <li ng-repeat="prod in order.products">
+                    <a href="/product?id={{prod.id}}">{{prod.name}} for {{prod.price}}</a>
+                </li>
+            </ul>
+            </p>
+        </li>
+    </ul>
+</div>
