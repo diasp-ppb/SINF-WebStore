@@ -26,6 +26,12 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.ListaTopArtigos(ranking);
         }
 
+        public IEnumerable<Lib_Primavera.Model.Artigo> GetRelated(String genero, String subgenero)
+        {
+            return Lib_Primavera.PriIntegration.ListaRelacionados(genero, subgenero);
+        }
+
+
         // GET api/artigo/5    
         public Artigo Get(string id)
         {

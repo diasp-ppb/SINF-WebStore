@@ -403,6 +403,48 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static List<Model.Artigo> ListaRelacionados(String genero, String subGenero)
+        {
+            StdBELista generoList, subGeneroList;
+
+            Model.Artigo art = new Model.Artigo();
+            List<Model.Artigo> listArts = new List<Model.Artigo>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                generoList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND NOT Artigo.SubFamilia = '" + subGenero + "';");
+                subGeneroList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND Artigo.SubFamilia = '" + subGenero + "';");
+
+                while (!subGeneroList.NoFim())
+                {
+                    art = new Model.Artigo();
+                    art.CodArtigo = subGeneroList.Valor("artigo");
+                    art.DescArtigo = subGeneroList.Valor("descricao");
+
+                    listArts.Add(art);
+                    subGeneroList.Seguinte();
+                }
+
+                while (!generoList.NoFim())
+                {
+                    art = new Model.Artigo();
+                    art.CodArtigo = generoList.Valor("artigo");
+                    art.DescArtigo = generoList.Valor("descricao");
+
+                    listArts.Add(art);
+                    generoList.Seguinte();
+                }
+
+                return listArts;
+            }
+            else
+            {
+                return null;
+
+            }
+
+        }
+
         #endregion Artigo
 
    
