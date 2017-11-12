@@ -3,6 +3,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
     $scope.tagline = 'The square root of life is pi!';
     $scope.$parent.productP = true;
 	$scope.validProd = true;
+	var srcImg = 'views/imgs/';
 	
 	var id = $location.search().id;
 	if(id === undefined) {
@@ -23,6 +24,9 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 			$scope.validProd = false;
 			return;
 		}
+		if($scope.product.Autor === null || $scope.product.Autor === "") $scope.product.Autor = 'Unknown';
+		if($scope.product.ImgURL === null || $scope.product.ImgURL === "") $scope.product.ImgURL = srcImg + 'default/750x500.png';
+		else $scope.product.ImgURL = srcImg + 'artigos/' + id + '/' + $scope.product.ImgURL;
 		$scope.product.PrecoFinal = $scope.product.PrecoFinal.toFixed(2);
 		$scope.valIni = $scope.product.PrecoFinal;
 		$scope.availability = [];
