@@ -23,8 +23,8 @@
     <!-- Portfolio Item Heading -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Portfolio Item
-                <small>Item Subheading</small>
+            <h1 class="page-header">{{product.DescArtigo}}
+                <small> Autor: Tony Carreira </small>
             </h1>
         </div>
     </div>
@@ -38,16 +38,13 @@
         </div>
 
         <div class="col-md-4">
-            <h3>Project Description</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-                urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies,
-                justo eu convallis placerat, felis enim.</p>
-            <h3>Project Details</h3>
+            <h3>Description</h3>
+            <p>{{product.Observacoes}}</p>
+            <h3>Genres</h3>
             <ul>
-                <li>Lorem Ipsum</li>
-                <li>Dolor Sit Amet</li>
-                <li>Consectetur</li>
-                <li>Adipiscing Elit</li>
+                <li>Avant Garde</li>
+                <li>Alt Rock</li>
+				<li>TBD</li>
             </ul>
         </div>
         <!--cart-->
@@ -57,20 +54,20 @@
 
             <div>
                 <h6>PRICE</h6>
-                <h3> 9.99€</h3>
+                <h3>{{product.PrecoFinal}}€</h3>
 
                 <h6 class="quantity-to-add">QUANTITY</h6>
                 <div class="input-group col-md-12">
                                     <span class="input-group-btn">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number"
+                                        <button ng-click="changePrice(-1)" type="button" class="quantity-left-minus btn btn-danger btn-number"
                                                 data-type="minus" data-field="">
                                           <span class="glyphicon glyphicon-minus"></span>
                                         </button>
                                     </span>
-                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10"
+                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{amount}}"
                            min="1" max="100">
                     <span class="input-group-btn">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number"
+                                        <button ng-click="changePrice(1)" type="button" class="quantity-right-plus btn btn-success btn-number"
                                                 data-type="plus" data-field="">
                                             <span class="glyphicon glyphicon-plus"></span>
                                         </button>
@@ -87,30 +84,14 @@
                     Add to wishlist
                 </button>
 
-                <button class="col-md-12 separate-buttons btn btn-info">
-                    <span class="glyphicon  glyphicon-share" aria-hidden="true"/>
-                    Share
-                </button>
-
                 <div class="storages-availability">
-
-                    <ul class="list-group">
-
+					<h4 class="list-group-item storages-availability-item">
+                        AVAILABILIY
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"/>
+                    </h4>
+                    <ul ng-repeat="local in availability" class="list-group">
                         <li class="list-group-item storages-availability-item">
-                            AVAILABILIY
-                            <span class="glyphicon glyphicon-check" aria-hidden="true"/>
-                        </li>
-
-                        <li class="list-group-item storages-availability-item">
-                            Porto
-                            <span class="glyphicon glyphicon-check" aria-hidden="true"/>
-                        </li>
-                        <li class="list-group-item storages-availability-item">
-                            Lisboa
-                            <span class="glyphicon glyphicon-check" aria-hidden="true"/>
-                        </li>
-                        <li class="list-group-item storages-availability-item">
-                            Faro
+						{{local}}
                             <span class="glyphicon glyphicon-check" aria-hidden="true"/>
                         </li>
                     </ul>
