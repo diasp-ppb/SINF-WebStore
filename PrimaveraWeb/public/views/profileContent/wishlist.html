@@ -16,7 +16,7 @@
                             <a class="thumbnail pull-left" href="/product?id={{prod.id}}"> <img class="media-object" src="{{prod.img}}" > </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="/product?id={{prod.id}}">{{prod.name}}</a></h4>
-                                <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                <span>Status: </span><span ng-if="prod.stock == 'true'" class="text-success"><strong>In Stock</strong></span><span ng-if="prod.stock == 'false'" class="text-danger"><strong>Out of Stock</strong></span>
                             </div>
                         </div>
                     </td>

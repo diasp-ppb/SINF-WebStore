@@ -33,7 +33,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
             document.getElementById('wishlist').classList.add('active');
             // TODO fazer get e atualizar este ciclo manhoso
             for(var i = 0; i < 3; i++){
-                $scope.wishlistProducts.push({id: 3, name: 'Darkside',price: '9.99', img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'});
+                $scope.wishlistProducts.push({id: 3, name: 'Darkside',price: '9.99', stock: 'true', img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'});
             }
 
         } else if (val == 'history') {
