@@ -56,6 +56,18 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public string idFamilia
+        {
+            get;
+            set;
+        }
+
+        public string idSubFamilia
+        {
+            get;
+            set;
+        }
+
         public string Familia
         {
             get;

@@ -46,13 +46,13 @@ body {
 .profile {
     margin: 20px 0;
   }
-  
+
   /* Profile sidebar */
   .profile-sidebar {
     padding: 20px 0 10px 0;
     background: #fff;
   }
-  
+
   .profile-userpic img {
     float: none;
     margin: 0 auto;
@@ -62,7 +62,7 @@ body {
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
   }
-  
+
   .profile-usertitle {
     text-align: center;
     margin-top: 20px;
@@ -74,11 +74,11 @@ body {
     font-weight: 600;
     margin-bottom: 7px;
   }
-  
+
   .profile-content-title {
     color: #5a7391;
   }
-  
+
   .profile-usertitle-edit {
     text-transform: uppercase;
     color: #5b9bd1;
@@ -86,12 +86,12 @@ body {
     font-weight: 600;
     margin-bottom: 15px;
   }
-  
+
   .profile-userbuttons {
     text-align: center;
     margin-top: 10px;
   }
-  
+
   .profile-userbuttons .btn {
     text-transform: uppercase;
     font-size: 11px;
@@ -99,50 +99,50 @@ body {
     padding: 6px 15px;
     margin-right: 5px;
   }
-  
+
   .profile-userbuttons .btn:last-child {
     margin-right: 0px;
   }
-      
+
   .profile-usermenu {
     margin-top: 30px;
   }
-  
+
   .profile-usermenu ul li {
     border-bottom: 1px solid #f0f4f7;
   }
-  
+
   .profile-usermenu ul li:last-child {
     border-bottom: none;
   }
-  
+
   .profile-usermenu ul li a {
     color: #93a3b5;
     font-size: 14px;
     font-weight: 400;
   }
-  
+
   .profile-usermenu ul li a i {
     margin-right: 8px;
     font-size: 14px;
   }
-  
+
   .profile-usermenu ul li a:hover {
     background-color: #fafcfd;
     color: #5b9bd1;
   }
-  
+
   .profile-usermenu ul li.active {
     border-bottom: none;
   }
-  
+
   .profile-usermenu ul li.active a {
     color: #5b9bd1;
     background-color: #f6f9fb;
     border-left: 2px solid #5b9bd1;
     margin-left: -2px;
   }
-  
+
   /* Profile Content */
   .profile-content {
     padding: 20px;
@@ -193,4 +193,24 @@ footer {
 .cred{
 	background-color: rgb(230,22,16);
 	border-color:  rgb(230,22,16);
+}
+
+.carousel-control {
+    padding-top: 10%;
+    width: 5%;
+}
+
+.carousel-inner {
+    padding-top: 2%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.related-item {
+    margin: 0 auto;
+}
+
+.related-title {
+    text-align: center;
+    font-weight: bold;
 }

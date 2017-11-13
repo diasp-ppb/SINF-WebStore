@@ -357,7 +357,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist, Familias.Descricao as familia, SubFamilias.Descricao as subfamilia ";
+                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist, Artigo.Familia, Artigo.SubFamilia, Familias.Descricao as nomeFamilia, SubFamilias.Descricao as nomeSubFamilia ";
                 string from1 = "FROM ((( ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
                 string from2 = "LEFT JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
                 string from3 = "LEFT JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
@@ -382,8 +382,10 @@ namespace FirstREST.Lib_Primavera
                         art.Observacoes = objList.Valor("observacoes");
                         art.DescArtigo = objList.Valor("descricao");
                         art.STKAtual = objList.Valor("stkactual");
-                        art.Familia = objList.Valor("familia");
-                        art.SubFamilia = objList.Valor("subfamilia");
+                        art.idFamilia = objList.Valor("Familia");
+                        art.Familia = objList.Valor("nomeFamilia");
+                        art.idSubFamilia = objList.Valor("SubFamilia");
+                        art.SubFamilia = objList.Valor("nomeSubFamilia");
                         art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
                         art.Distritos = new List<string>();
                         art.Localidades = new List<string>();
@@ -491,7 +493,7 @@ namespace FirstREST.Lib_Primavera
 
         }
 
-        public static List<Model.Artigo> ListaRelacionados(String genero, String subGenero)
+        public static List<Model.Artigo> ListaRelacionados(String id, String genero, String subGenero)
         {
             StdBELista generoList, subGeneroList;
 
@@ -500,8 +502,8 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                generoList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND NOT Artigo.SubFamilia = '" + subGenero + "';");
-                subGeneroList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND Artigo.SubFamilia = '" + subGenero + "';");
+                generoList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND NOT Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
+                subGeneroList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
 
                 while (!subGeneroList.NoFim())
                 {

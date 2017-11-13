@@ -15,7 +15,6 @@
     <link href="css/style.css" rel="stylesheet">
 
 </head>
-
 <body>
 <!-- Page Content -->
 <div class="container">
@@ -106,28 +105,29 @@
             <h3 class="page-header">Related Products</h3>
         </div>
 
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-sm-3 col-xs-6">
-            <a href="#">
-                <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-            </a>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="well">
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div ng-repeat="sublist in related" class="item" ng-class="{active:$first}">
+                                <div class="row">
+                                    <div ng-repeat="relitem in sublist" class="related-item col-sm-3"><a href="#x"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a>
+                                        <h5 class="related-title">{{relitem.DescArtigo}}</h5>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                            </div>
+                        </div>
+                        <!--/carousel-inner-->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                    </div>
+                    <!--/myCarousel-->
+                </div>
+                <!--/well-->
+            </div>
         </div>
 
     </div>

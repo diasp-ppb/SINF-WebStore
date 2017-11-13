@@ -49,6 +49,23 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 		if($scope.availability.length === 0){
 			$scope.availability.push('Not Available!');
 		}
+
+		if ($scope.product.idFamilia && $scope.product.idSubFamilia) {
+            var url = "http://localhost:49822/api/Artigos?id=" + id +"&genero=" + $scope.product.idFamilia + "&subgenero=" + $scope.product.idSubFamilia;
+
+            $http.get(url, {
+                headers: {
+                    "content-type" : "application/json"
+                }
+            }).then(function (response) {
+            	$scope.related = [];
+
+            	for (var i = 0; i < response.data.length; i += 4) {
+					$scope.related.push(response.data.slice(i, i + 4));
+				}
+			});
+		}
+
     }, function (x) {
     });
 	$scope.amount = 1;	

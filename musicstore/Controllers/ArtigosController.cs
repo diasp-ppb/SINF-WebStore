@@ -25,10 +25,10 @@ namespace FirstREST.Controllers
         {
             return Lib_Primavera.PriIntegration.ListaTopArtigos(ranking);
         }
-        
-        public IEnumerable<Lib_Primavera.Model.Artigo> GetRelated(String genero, String subgenero)
+
+        public IEnumerable<Lib_Primavera.Model.Artigo> GetRelated(String id, String genero, String subgenero)
         {
-            return Lib_Primavera.PriIntegration.ListaRelacionados(genero, subgenero);
+            return Lib_Primavera.PriIntegration.ListaRelacionados(id, genero, subgenero);
         }
         
         public HttpResponseMessage Get(string CodArtigo, string Campo, string Conteudo)
