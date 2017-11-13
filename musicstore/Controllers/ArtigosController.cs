@@ -20,7 +20,7 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.ListaArtigos();
         }
 
-        
+
         public IEnumerable<Lib_Primavera.Model.Artigo> GetTop(int ranking)
         {
             return Lib_Primavera.PriIntegration.ListaTopArtigos(ranking);
@@ -30,7 +30,7 @@ namespace FirstREST.Controllers
         {
             return Lib_Primavera.PriIntegration.ListaRelacionados(id, genero, subgenero);
         }
-        
+
         public HttpResponseMessage Get(string CodArtigo, string Campo, string Conteudo)
         {
             Lib_Primavera.Model.AltArtigo data = new Lib_Primavera.Model.AltArtigo();

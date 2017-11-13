@@ -49,7 +49,7 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
-        
+
         public List<dynamic> STKArm
         {
             get;
@@ -79,7 +79,7 @@ namespace FirstREST.Lib_Primavera.Model
             get;
             set;
         }
-       
+
         public string Autor
         {
             get;
@@ -90,7 +90,7 @@ namespace FirstREST.Lib_Primavera.Model
         {
             get;
             set;
-        } 
+        }
 
         // TODO acho que podemos usar a cena das observações como descrição 
         public string Observacoes
