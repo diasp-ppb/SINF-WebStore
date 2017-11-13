@@ -6,6 +6,26 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
     $scope.showWarehouse = false;
     $scope.showStock= false;
     $scope.showNewP = false;
+	
+	$scope.updateProduct = function () {
+		var cod = document.getElementById('CodArtigo').value;
+		var cam = document.getElementById('Campo').value;
+		var con = document.getElementById('Conteudo').value;
+		if(cod === "" || cam === "" || con === "")return;
+		if(cod === null || cam === null || con === null)return;
+		if(cod === undefined || cam === undefined || con === undefined)return;
+		var data = {CodArtigo: cod, Campo: cam, Conteudo: con};
+		var url = "http://localhost:49822/api/artigos?CodArtigo=" + cod + "&Campo=" + cam + "&Conteudo=" + con;
+		$http.get(url, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            console.log(response);
+			if(response.data.changed) $scope.cancro = "Update Success!";
+        }, function (x) {
+        });
+	}
 
     $scope.changeViewAdmin = function (val) {
 

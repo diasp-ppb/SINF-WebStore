@@ -25,12 +25,24 @@ namespace FirstREST.Controllers
         {
             return Lib_Primavera.PriIntegration.ListaTopArtigos(ranking);
         }
-
+        
         public IEnumerable<Lib_Primavera.Model.Artigo> GetRelated(String genero, String subgenero)
         {
             return Lib_Primavera.PriIntegration.ListaRelacionados(genero, subgenero);
         }
+        
+        public HttpResponseMessage Get(string CodArtigo, string Campo, string Conteudo)
+        {
+            Lib_Primavera.Model.AltArtigo data = new Lib_Primavera.Model.AltArtigo();
+            data.CodArtigo = CodArtigo;
+            data.Campo = Campo;
+            data.Conteudo = Conteudo;
+            if (data == null || !Lib_Primavera.PriIntegration.EditArtigo(data))
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
 
+            return Request.CreateResponse(HttpStatusCode.Accepted, new { changed = "true" });
+
+        }
 
         // GET api/artigo/5    
         public Artigo Get(string id)

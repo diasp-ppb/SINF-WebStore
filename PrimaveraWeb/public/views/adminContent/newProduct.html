@@ -2,65 +2,31 @@
     <div class="row">
         <form class="form-horizontal">
             <fieldset>
+				<h3>{{cancro}}</h3>
                 <div class="form-group">
-                    <label class="col-md-1 control-label" for="name">Name</label>
+                    <label class="col-md-1 control-label" for="name">Code Of Product</label>
                     <div class="col-md-4">
-                        <input id="name" name="name" placeholder="Product name" class="form-control input-md" required="" type="text">
+                        <input id="CodArtigo" name="CodArtigo" placeholder="Code of Product" class="form-control input-md" required="" type="text"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-1 control-label" for="description">Description</label>
+                    <label class="col-md-1 control-label" for="description">Field to edit</label>
                     <div class="col-md-4">
-                        <textarea id="description" name="description" placeholder="Simple product description" class="form-control input-md" required=""></textarea>
+                        <input id="Campo" name="Campo" placeholder="Field desired to edit" class="form-control input-md" required="" type="text"/>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="price">Price</label>
+				
+				<div class="form-group">
+                    <label class="col-md-1 control-label" for="description">Content</label>
                     <div class="col-md-4">
-                        <input id="price" name="price" placeholder="Product price in € without IVA" class="form-control input-md" required="" type="number" min="0" step="0.01">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="iva">IVA</label>
-                    <div class="col-md-4">
-                        <input id="iva" name="iva" placeholder="Product IVA in %" class="form-control input-md" required="" type="number" min="0" step="1">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="author">Author</label>
-                    <div class="col-md-4">
-                        <input id="author" name="author" placeholder="Product author" class="form-control input-md" required="" type="text">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="genre">Genre</label>
-                    <div class="col-md-4">
-                        <input id="genre" name="genre" placeholder="Product genre" class="form-control input-md" required="" type="text">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="subGenre">Sub-Genre</label>
-                    <div class="col-md-4">
-                        <input id="subGenre" name="subGenre" placeholder="Product sub-genre" class="form-control input-md" required="" type="text">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="photo">Product Photo</label>
-                    <div class="col-md-4">
-                        <input id="photo" name="photo" class="filestyle form-control input-md" data-icon="false" type="file">
+                        <textarea id="Conteudo" name="Conteudo" placeholder="Desired content!" class="form-control input-md" required=""></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-1">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Submit</button>
+                        <button ng-click="updateProduct()" id="singlebutton" name="singlebutton" class="btn btn-primary">Change</button>
                     </div>
                 </div>
 

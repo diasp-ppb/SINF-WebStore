@@ -409,6 +409,51 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static bool EditArtigo(Model.AltArtigo data)
+        {
+            bool returnFlag = false;
+            GcpBEArtigo art = new GcpBEArtigo();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                if (PriEngine.Engine.Comercial.Artigos.Existe(data.CodArtigo) == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    //PriEngine.Engine.Consulta("UPDATE Artigo SET " + data.Campo + " = " + data.Conteudo + " WHERE Artigo.Artigo = '" + data.CodArtigo + "'");
+                    art = PriEngine.Engine.Comercial.Artigos.Edita(data.CodArtigo);
+                    art.set_EmModoEdicao(true);
+                    switch (data.Campo)
+                    {
+                        case "Observacoes":
+                            art.set_Observacoes(data.Conteudo);
+                            break;
+                        case "Descricao":
+                            art.set_Descricao(data.Conteudo);
+                            break;
+                        case "SubFamilia":
+                            art.set_SubFamilia(data.Conteudo);
+                            break;
+                        case "Iva":
+                            art.set_IVA(data.Conteudo);
+                            break;
+                        case "Familia":
+                            art.set_Familia(data.Conteudo);
+                            break;
+                        default:
+                            break;
+                    }
+                    PriEngine.Engine.Comercial.Artigos.Actualiza(art);
+                    returnFlag = true;
+                }
+            }
+            
+            return returnFlag;
+        }
+
+
         public static List<Model.Artigo> ListaTopArtigos(int ranking)
         {
 
