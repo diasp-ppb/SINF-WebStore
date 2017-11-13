@@ -53,6 +53,17 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public string Telefone
+        {
+            get;
+            set;
+        }
+
+        public string CodPost
+        {
+            get;
+            set;
+        }
 
     }
 }

@@ -29,7 +29,7 @@ namespace FirstREST.Lib_Primavera
 
                 //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
 
-                objList = PriEngine.Engine.Consulta("SELECT Cliente, Nome, Moeda, NumContrib as NumContribuinte, Fac_Mor AS campo_exemplo, CDU_Email as Email FROM  CLIENTES");
+                objList = PriEngine.Engine.Consulta("SELECT Cliente, Nome, Moeda, NumContrib as NumContribuinte, Fac_Mor AS campo_exemplo, CDU_Email as Email, Fac_Cp, Fac_Tel FROM  CLIENTES");
 
                 
                 while (!objList.NoFim())
@@ -41,13 +41,52 @@ namespace FirstREST.Lib_Primavera
                         Moeda = objList.Valor("Moeda"),
                         NumContribuinte = objList.Valor("NumContribuinte"),
                         Morada = objList.Valor("campo_exemplo"),
-                        Email = objList.Valor("Email")
+                        Email = objList.Valor("Email"),
+                        Telefone = objList.Valor("Fac_Tel"),
+                        CodPost = objList.Valor("Fac_Cp")
                     });
                     objList.Seguinte();
-
                 }
 
                 return listClientes;
+            }
+            else
+                return null;
+        }
+
+        public static Lib_Primavera.Model.Cliente GetClienteFull(string codCliente)
+        {
+
+            StdBELista objList;
+
+            Model.Cliente client = new Model.Cliente();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+                string select = "SELECT Cliente, Nome, Moeda, NumContrib as NumContribuinte, Fac_Mor AS campo_exemplo, CDU_Email as Email, Fac_Cp, Fac_Tel FROM  CLIENTES ";
+                string query = select + "WHERE Cliente = '" + codCliente + "'";
+                objList = PriEngine.Engine.Consulta(query);
+
+
+                while (!objList.NoFim())
+                {
+                    client = new Model.Cliente
+                    {
+                        CodCliente = objList.Valor("Cliente"),
+                        NomeCliente = objList.Valor("Nome"),
+                        Moeda = objList.Valor("Moeda"),
+                        NumContribuinte = objList.Valor("NumContribuinte"),
+                        Morada = objList.Valor("campo_exemplo"),
+                        Email = objList.Valor("Email"),
+                        Telefone = objList.Valor("Fac_Tel"),
+                        CodPost = objList.Valor("Fac_Cp")
+                    };
+                    objList.Seguinte();
+                }
+
+                return client;
             }
             else
                 return null;

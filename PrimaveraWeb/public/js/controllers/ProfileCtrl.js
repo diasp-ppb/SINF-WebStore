@@ -1,14 +1,32 @@
-angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope) {
+angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $location, $http) {
 
     // TODO fazer get
     $scope.user = {name: 'User Name', img: 'https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108'};
     $scope.content = "User overview content";
 
     $scope.showOverview = true;
+	document.getElementById('overview').classList.add('active');
     $scope.showWishList = false;
     $scope.showHistory = false;
     $scope.showOrders = false;
-
+	
+	var id = $location.search().id;
+	if(id === undefined) {
+		$scope.validUser = false;
+		$scope.profileInfo = 'Invalid User!';
+		return;
+	}
+	var url = "http://localhost:49822/api/clientes?id=" + id;
+	
+	$http.get(url, {
+        headers: {
+            "content-type" : "application/json"
+        }
+    }).then(function (response) {
+        $scope.user = response.data;
+    }, function (x) {
+    });
+	
     $scope.changeView = function (val) {
 
         $scope.showOverview = false;
@@ -27,6 +45,8 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         if (val == 'overview') {
             $scope.showOverview = true;
             document.getElementById('overview').classList.add('active');
+			
+			
 
         } else if (val == 'wishlist') {
             $scope.showWishList = true;
