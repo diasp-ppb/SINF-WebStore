@@ -4,14 +4,14 @@
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img src="{{user.img}}"
+					<img src="https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108"
 					 class="img-responsive" alt="" style="    width: 250px; height: 250px;">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						{{user.name}}
+						{{user.NomeCliente}}
 						<span class="fa fa-envelope small pull-right"> </span>
 					</div>
 					<div class="profile-usertitle-edit">
@@ -51,7 +51,14 @@
 			<div id="profile-content">
 				<div ng-show="showOverview">
 					<h1 class="profile-content-title">Overview</h1>
-					{{content}}
+					<br>
+					<ul>
+						<li class="list-group-item">Endereço Email: {{user.Email}}</li>
+						<li class="list-group-item">Morada: {{user.Morada}}</li>
+						<li class="list-group-item">Código Postal: {{user.CodPost}}</li>
+						<li class="list-group-item">NIF: {{user.NumContribuinte}}</li>
+						<li class="list-group-item">Telefone: {{user.Telefone}}</li>
+					</ul>
 				</div>
 				<div ng-show="showWishList">
 					<h1 class="profile-content-title">WishList</h1>
