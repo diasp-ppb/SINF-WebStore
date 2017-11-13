@@ -1,5 +1,5 @@
 angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $location, $http) {
-
+        
     // TODO fazer get
     $scope.user = {name: 'User Name', img: 'https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108'};
     $scope.content = "User overview content";
@@ -62,11 +62,25 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         } else if (val == 'wishlist') {
             $scope.showWishList = true;
             document.getElementById('wishlist').classList.add('active');
-            // TODO fazer get e atualizar este ciclo manhoso
-            for(var i = 0; i < 3; i++){
-                $scope.wishlistProducts.push({id: 3, name: 'Darkside',price: '9.99', stock: 'true', img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'});
-            }
 
+            $http.get("http://localhost:8080/api/listaDesejo?cliente=" + id, {
+                headers: {
+                    "content-type" : "application/json"
+                }
+            }).then(function (response) {
+                console.log(response);
+
+                var product = response.data.resp;
+                console.log("product", product);
+                if(product != 1) {
+                    for(var i = 0; i < product.length; i++){
+                        $scope.wishlistProducts.push({id: product[i].codArtigo, name: product[i].Descricao, price: '9.99', stock: 'true', img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'});
+                        
+                    }
+                }
+            }, function (x) {
+            });
+        
         } else if (val == 'history') {
             $scope.showHistory = true;
             document.getElementById('history').classList.add('active');

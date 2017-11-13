@@ -3,6 +3,7 @@ var express        = require('express');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+
 const sqlite3 = require('sqlite3').verbose();
 
 
@@ -20,7 +21,6 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
 // slqite db ==============================================
-
 let db = new sqlite3.Database('./db/database.db');
 
 var InsertInListadeDesejo = function(codArtigo,cliente,callback) {
@@ -49,7 +49,7 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
 }
 
 var SelectCarrinhoDeComprasByCliente = function(cliente,callback) {
-    
+    console.log(cliente);
 var sql = 'Select * from carrinhoDeCompras WHERE Cliente = ?';
     db.all(sql, [cliente], (err, rows) => {
         if (err) {
@@ -59,9 +59,9 @@ var sql = 'Select * from carrinhoDeCompras WHERE Cliente = ?';
     });
 }
 
-var SelectCarrinhoDeComprasByCliente = function(cliente,callback) {
+var SelectListaDeDesejoByCliente = function(cliente,callback) {
     
-var sql = 'Select * from listaDeDesejo WHERE Cliente = ?';
+var sql = 'Select * from listaDoDesejo WHERE Cliente = ?';
     db.all(sql, [cliente], (err, rows) => {
         if (err) {
             return callback(1);
@@ -70,9 +70,9 @@ var sql = 'Select * from listaDeDesejo WHERE Cliente = ?';
     });
 }
 
-var DeleteCarrinhoDeComprasByCliente = function(cliente,callback) {
+var DeleteArtigoFromListaDeDesejo = function(cliente,callback) {
     
-var sql = 'Delete from carrinhoDeCompras WHERE cliente = ?';
+var sql = 'Delete from listaDoDesejo WHERE cliente = ?';
     db.run(sql, [cliente], function(err) {
         if (err) {
             return callback(1);
@@ -81,7 +81,7 @@ var sql = 'Delete from carrinhoDeCompras WHERE cliente = ?';
   return callback(null);
 }
 
-var DeleteArtinhoFromListaDoDesejo = function(cliente,codArtigo,quantidade,callback) {
+var DeleteCarrinhoDeComprasByCliente = function(cliente,codArtigo,quantidade,callback) {
     
 var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
     db.run(sql, [cliente,codArtigo], function(err) {
@@ -91,6 +91,35 @@ var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
     });
   return callback(null);
 }
+
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();              // get an instance of the express Router
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.post('/deleteDesejo', function(req, res) {
+     DeleteArtigoFromListaDeDesejo(req.query.cliente, function(resp){
+        res.json({ message: resp });   
+     });
+});
+
+router.get('/carrinhocompras', function(req, res) {
+    SelectCarrinhoDeComprasByCliente(req.query.cliente, function(resp){
+       res.json({resp});   
+    });
+});
+
+router.get('/listaDesejo', function(req, res) {
+    SelectListaDeDesejoByCliente(req.query.cliente, function(resp){
+       res.json({resp});   
+    });
+});
+
+// more routes for our API will happen here
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
 
 // routes ==================================================
 require('./app/routes')(app); // pass our application into our routes
