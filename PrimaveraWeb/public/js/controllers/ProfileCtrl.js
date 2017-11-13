@@ -17,6 +17,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
 		return;
 	}
 	var url = "http://localhost:49822/api/clientes?id=" + id;
+	var url2 = "http://localhost:49822/api/docvenda?codUser=" + id;
 	
 	$http.get(url, {
         headers: {
@@ -24,6 +25,15 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         }
     }).then(function (response) {
         $scope.user = response.data;
+    }, function (x) {
+    });
+	
+	$http.get(url2, {
+        headers: {
+            "content-type" : "application/json"
+        }
+    }).then(function (response) {
+        $scope.orders = response.data;
     }, function (x) {
     });
 	
@@ -60,21 +70,36 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
             $scope.showHistory = true;
             document.getElementById('history').classList.add('active');
             // TODO fazer get e atualizar este ciclo manhoso
-            $scope.totalOrders = 3;
-            for(var i = 0; i < 3; i++){
-                var products = [{id: 3, name: 'Darkside',price: '9.99'},{id: 47, name: 'Nonagon Infinity', price: '0.10'}];
-                $scope.historyList.push({orderId: 80+i,orderPrice: '10.09', date: '19/9/2019', products: products});
+			var total = 0;
+            for(var i = 0; i < $scope.orders.length; i++){
+				if($scope.orders[i].Estado == 'Enviado'){
+					total++;
+					var products = [];
+					for(var j = 0; j < $scope.orders[i].LinhasDoc.length; j++){
+						var prod = $scope.orders[i].LinhasDoc[j];
+						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalLiquido});
+					}
+					$scope.historyList.push({orderId: $scope.orders[i].id, orderPrice: $scope.orders[i].TotalMerc, date: $scope.orders[i].Data, products: products});
+				}
             }
+			$scope.totalOrders = total;
 
         } else if (val == 'orders') {
             $scope.showOrders = true;
             document.getElementById('orders').classList.add('active');
-            // TODO fazer get e atualizar este ciclo manhoso
-            $scope.totalOrders = 3;
-            for(var i = 0; i < 3; i++){
-                var products = [{id: 3, name: 'Darkside',price: '9.99'},{id: 47, name: 'Nonagon Infinity', price: '0.10'}];
-                $scope.activeOrders.push({orderId: 80+i,orderPrice: '10.09', date: '19/9/2019', products: products});
+            var total = 0;
+            for(var i = 0; i < $scope.orders.length; i++){
+				if($scope.orders[i].Estado != 'Enviado'){
+					total++;
+					var products = [];
+					for(var j = 0; j < $scope.orders[i].LinhasDoc.length; j++){
+						var prod = $scope.orders[i].LinhasDoc[j];
+						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalLiquido});
+					}
+					$scope.historyList.push({orderState: $scope.orders[i].Estado, orderId: $scope.orders[i].id, orderPrice: $scope.orders[i].TotalMerc, date: $scope.orders[i].Data, products: products});
+				}
             }
+			$scope.totalOrders = total;
         }
 
     }
