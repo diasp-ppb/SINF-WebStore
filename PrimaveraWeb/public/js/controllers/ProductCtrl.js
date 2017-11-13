@@ -59,9 +59,16 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
                 }
             }).then(function (response) {
             	$scope.related = [];
-
+				//TODO Destrolhar
             	for (var i = 0; i < response.data.length; i += 4) {
-					$scope.related.push(response.data.slice(i, i + 4));
+					$scope.related.push(response.data.slice(i, i + 4).map(
+						function (item) {
+							if(item.ImgURL === null || item.ImgURL === "") 
+								item.ImgURL = srcImg + 'default/500x500.png';
+							else 
+								item.ImgURL = srcImg + 'artigos/' + item.CodArtigo + '/' + item.ImgURL;		
+						return item;
+						}));
 				}
 			});
 		}

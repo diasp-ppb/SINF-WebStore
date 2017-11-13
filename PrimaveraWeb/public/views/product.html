@@ -113,7 +113,7 @@
                         <div class="carousel-inner">
                             <div ng-repeat="sublist in related" class="item" ng-class="{active:$first}">
                                 <div class="row">
-                                    <div ng-repeat="relitem in sublist" class="related-item col-sm-3"><a href="#x"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a>
+                                    <div ng-repeat="relitem in sublist" class="related-item col-sm-3"><a href="product?id={{relitem.CodArtigo}}"><img src="{{relitem.ImgURL}}" alt="Image" class="img-responsive"></a>
                                         <h5 class="related-title">{{relitem.DescArtigo}}</h5>
                                     </div>
                                 </div>
