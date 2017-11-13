@@ -59,5 +59,10 @@ namespace FirstREST.Controllers
 
         }
 
+        public Lib_Primavera.Model.TotalFamilias GetFamilias(int limite)
+        {
+            return Lib_Primavera.PriIntegration.Encomendas_List_Familias(); 
+        } 
+
     }
 }

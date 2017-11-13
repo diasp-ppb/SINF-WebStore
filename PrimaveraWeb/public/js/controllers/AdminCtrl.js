@@ -1,4 +1,4 @@
-angular.module('AdminCtrl', []).controller('AdminController', function ($scope) {
+angular.module('AdminCtrl', []).controller('AdminController', function ($scope, $http) {
     $scope.content = "Dashboard";
 
     $scope.showDash = true;
@@ -31,8 +31,19 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope) 
             $scope.showSales = true;
             document.getElementById('sales').classList.add('active');
 
-            $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-            $scope.data = [300, 500, 100];
+            $http.get("http://localhost:49822/api/doccompra?limite=1", {
+                headers: {
+                    "content-type" : "application/json"
+                }
+            }).then(function (response) {
+                console.log(response);
+
+                var product = response.data;
+                $scope.labels = product.Tipos;
+                $scope.data = product.Totais;
+
+            }, function (x) {
+            });
 
         }else if (val === 'warehouse') {
             $scope.content = "Warehouses";

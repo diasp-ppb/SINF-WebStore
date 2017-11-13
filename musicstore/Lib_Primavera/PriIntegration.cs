@@ -688,6 +688,37 @@ namespace FirstREST.Lib_Primavera
             return listdv;
         }
 
+        public static Model.TotalFamilias Encomendas_List_Familias()
+        {
+            StdBELista objListaFam;
+
+            Model.TotalFamilias art = new Model.TotalFamilias();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                string select = "SELECT Familias.Descricao, COUNT(Familias.Descricao) AS Num FROM ((CabecDoc INNER JOIN LinhasDoc ON CabecDoc.id = LinhasDoc.IdCabecDoc) INNER JOIN Artigo ON Artigo.Artigo = LinhasDoc.Artigo) INNER JOIN Familias ON Familias.Familia = Artigo.Familia WHERE CabecDoc.TipoDoc = 'ECL' AND Quantidade > 0 GROUP BY Familias.Descricao ORDER BY COUNT(Familias.Descricao) DESC; ";             
+
+                objListaFam = PriEngine.Engine.Consulta(select); 
+                art.Tipos = new List<string>();
+                art.Totais = new List<int>();
+
+                while (!objListaFam.NoFim())
+                {
+                    art.Tipos.Add(objListaFam.Valor("Descricao"));
+                    art.Totais.Add(objListaFam.Valor("Num"));
+
+                    objListaFam.Seguinte();
+                }
+
+                return art;
+
+            }
+            else
+            {
+                return null;
+
+            }
+        }
 
        
 
