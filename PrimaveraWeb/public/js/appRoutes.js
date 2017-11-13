@@ -36,6 +36,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/product', {
             templateUrl: 'views/product.html',
             controller: 'ProductController'
+		})
+		.when('/shoppingCart', {
+            templateUrl: 'views/shoppingcart.html',
+            controller: 'ShoppingController'
+		})
+		.when('/search', {
+            templateUrl: 'views/search.html',
+            controller: 'SearchController'
         });
 
 	$locationProvider.html5Mode(true);
