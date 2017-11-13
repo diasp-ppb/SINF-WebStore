@@ -34,6 +34,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         }
     }).then(function (response) {
         $scope.orders = response.data;
+		console.log('got orders');
     }, function (x) {
     });
 	
@@ -45,7 +46,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         $scope.showOrders = false;
         $scope.historyList = [];
         $scope.wishlistProducts = [];
-        $scope.activeOrders = [];
+        $scope.orderList = [];
 
         document.getElementById('overview').classList.remove('active');
         document.getElementById('wishlist').classList.remove('active');
@@ -77,7 +78,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
 					var products = [];
 					for(var j = 0; j < $scope.orders[i].LinhasDoc.length; j++){
 						var prod = $scope.orders[i].LinhasDoc[j];
-						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalLiquido});
+						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalILiquido});
 					}
 					$scope.historyList.push({orderId: $scope.orders[i].id, orderPrice: $scope.orders[i].TotalMerc, date: $scope.orders[i].Data, products: products});
 				}
@@ -94,12 +95,12 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
 					var products = [];
 					for(var j = 0; j < $scope.orders[i].LinhasDoc.length; j++){
 						var prod = $scope.orders[i].LinhasDoc[j];
-						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalLiquido});
+						products.push({id: prod.CodArtigo, name: prod.DescArtigo, quantidade: prod.Quantidade, price: prod.TotalILiquido});
 					}
-					$scope.historyList.push({orderState: $scope.orders[i].Estado, orderId: $scope.orders[i].id, orderPrice: $scope.orders[i].TotalMerc, date: $scope.orders[i].Data, products: products});
+					$scope.orderList.push({orderState: $scope.orders[i].Estado, orderId: $scope.orders[i].id, orderPrice: $scope.orders[i].TotalMerc, date: $scope.orders[i].Data, products: products});
 				}
             }
-			$scope.totalOrders = total;
+			$scope.totalOrders2 = total;
         }
 
     }

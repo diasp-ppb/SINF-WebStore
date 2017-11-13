@@ -32,6 +32,12 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public string Estado
+        {
+            get;
+            set;
+        }
+
         public double TotalMerc
         {
             get;

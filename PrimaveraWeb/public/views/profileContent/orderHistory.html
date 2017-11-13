@@ -3,10 +3,10 @@
     <ul>
         <li ng-repeat="order in historyList">
             <p id={{order.orderId}}>
-                Ordered on {{order.date}} with a total of {{order.orderPrice}}
+                Ordered on {{order.date}} with a total of {{order.orderPrice}}€
             <ul>
                 <li ng-repeat="prod in order.products">
-                    <a href="/product?id={{prod.id}}">{{prod.name}} for {{prod.price}}</a>
+                    <a href="/product?id={{prod.id}}">[{{prod.quantidade}}] {{prod.name}} for {{prod.price}}€</a>
                 </li>
             </ul>
             </p>

@@ -21,7 +21,7 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.Encomendas_List();
         }
 
-
+        /*
         // GET api/cliente/5    
         public Lib_Primavera.Model.DocVenda Get(string id)
         {
@@ -37,7 +37,11 @@ namespace FirstREST.Controllers
                 return docvenda;
             }
         }
-
+        */
+        public IEnumerable<Lib_Primavera.Model.DocVenda> Get(string codUser)
+        {
+            return Lib_Primavera.PriIntegration.Encomendas_List_User(codUser);
+        }
 
         public HttpResponseMessage Post(Lib_Primavera.Model.DocVenda dv)
         {
