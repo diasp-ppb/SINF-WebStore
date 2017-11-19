@@ -64,7 +64,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 					$scope.related.push(response.data.slice(i, i + 4).map(
 						function (item) {
 							if(item.ImgURL === null || item.ImgURL === "") 
-								item.ImgURL = srcImg + 'default/500x500.png';
+								item.ImgURL = srcImg + 'default/500x300.png';
 							else 
 								item.ImgURL = srcImg + 'artigos/' + item.CodArtigo + '/' + item.ImgURL;		
 						return item;
