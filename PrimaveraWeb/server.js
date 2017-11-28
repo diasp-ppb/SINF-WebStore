@@ -92,6 +92,32 @@ var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
   return callback(null);
 }
 
+function updateArtigoInfo(codArtigo, autor, imagem, callback) {
+	var getArtigo = 'SELECT id FROM ArtigoInfo WHERE id = ?';
+	db.all(getArtigo, [codArtigo], (err, rows) => {
+		if (err) {
+			return callback(-1);
+		}
+		if (rows.length !== 1) {
+			var sql = 'INSERT INTO ArtigoInfo(id, autor, imagem) VALUES(?,?,?)';
+			db.run(sql, [codArtigo, autor, imagem], function(err) {
+				if (err) {
+					return callback(-2);
+				}
+				return callback(1);
+			});
+		} else {
+			var sql = 'UPDATE ArtigoInfo SET imagem = ?, autor = ? WHERE id = ?';
+			db.run(sql, [imagem, autor, codArtigo], function(err) {
+				if (err) {
+					return callback(-3);
+				}
+				return callback(1);
+			});
+		}
+	});
+}
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -101,6 +127,18 @@ router.post('/deleteDesejo', function(req, res) {
      DeleteArtigoFromListaDeDesejo(req.query.cliente, function(resp){
         res.json({ message: resp });   
      });
+});
+
+router.get('/atualizarArtigo', function(req, res) {
+	var codArtigo = req.query.codArtigo;
+	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
+	var imagem = req.query.imagem;
+	var autor = req.query.autor;
+	if(imagem === undefined) imagem = null;
+	if(autor === undefined) autor = null;
+	updateArtigoInfo(codArtigo, autor, imagem, function(resp){
+        res.send({ message: resp });   
+    });
 });
 
 router.get('/carrinhocompras', function(req, res) {
