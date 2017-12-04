@@ -357,7 +357,7 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Artigo.Autor, ImgURL, Armazens.Localidade, Distritos.Descricao as Dist, Artigo.Familia, Artigo.SubFamilia, Familias.Descricao as nomeFamilia, SubFamilias.Descricao as nomeSubFamilia ";
+                string select = "SELECT Artigo.Descricao, Artigo.Observacoes , Artigo.STKActual, Iva, PVP1, ArtigoArmazem.StkActual as StkLocal, Armazens.Localidade, Distritos.Descricao as Dist, Artigo.Familia, Artigo.SubFamilia, Familias.Descricao as nomeFamilia, SubFamilias.Descricao as nomeSubFamilia ";
                 string from1 = "FROM ((( ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
                 string from2 = "LEFT JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
                 string from3 = "LEFT JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
@@ -386,8 +386,6 @@ namespace FirstREST.Lib_Primavera
                         art.Familia = objList.Valor("nomeFamilia");
                         art.idSubFamilia = objList.Valor("SubFamilia");
                         art.SubFamilia = objList.Valor("nomeSubFamilia");
-                        art.Autor = objList.Valor("Autor");
-                        art.ImgURL = objList.Valor("ImgURL");
                         art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
                         art.Distritos = new List<string>();
                         art.Localidades = new List<string>();
@@ -504,15 +502,14 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                generoList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao, ImgURL FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND NOT Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
-                subGeneroList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao, ImgURL FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
+                generoList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND NOT Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
+                subGeneroList = PriEngine.Engine.Consulta("SELECT Artigo.Artigo, Artigo.Descricao FROM Artigo WHERE Artigo.Familia = '" + genero + "' AND Artigo.SubFamilia = '" + subGenero + "' AND NOT Artigo.Artigo = '" + id + "';");
 
                 while (!subGeneroList.NoFim())
                 {
                     art = new Model.Artigo();
                     art.CodArtigo = subGeneroList.Valor("artigo");
                     art.DescArtigo = subGeneroList.Valor("descricao");
-                    art.ImgURL = subGeneroList.Valor("ImgURL");
 
                     listArts.Add(art);
                     subGeneroList.Seguinte();
@@ -523,7 +520,6 @@ namespace FirstREST.Lib_Primavera
                     art = new Model.Artigo();
                     art.CodArtigo = generoList.Valor("artigo");
                     art.DescArtigo = generoList.Valor("descricao");
-                    art.ImgURL = generoList.Valor("ImgURL");
 
                     listArts.Add(art);
                     generoList.Seguinte();

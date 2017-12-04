@@ -21,8 +21,13 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
 // slqite db ==============================================
-let db = new sqlite3.Database('./db/database.db');
-
+let db = new sqlite3.Database('./db/database.db',
+(err) => {
+    if (err) {
+    return console.error(err.message);
+    }
+    console.log('Connected to the in-memory SQlite database.');
+});
 var InsertInListadeDesejo = function(codArtigo,cliente,callback) {
     
 var sql = 'INSERT INTO listaDoDesejo VALUES ( ?, ?)';
