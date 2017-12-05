@@ -97,6 +97,16 @@ var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
   return callback(null);
 }
 
+function getArtigoInfo(codArtigo, callback) {
+	var getArtigo = 'SELECT * FROM ArtigoInfo WHERE id = ?';
+	db.all(getArtigo, [codArtigo], (err, rows) => {
+		if (err) {
+			return callback(-1);
+		}
+		return callback(rows[0]);
+	});
+}
+
 function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 	var getArtigo = 'SELECT id FROM ArtigoInfo WHERE id = ?';
 	db.all(getArtigo, [codArtigo], (err, rows) => {
@@ -134,16 +144,24 @@ router.post('/deleteDesejo', function(req, res) {
      });
 });
 
-router.get('/atualizarArtigo', function(req, res) {
-	var codArtigo = req.query.codArtigo;
+router.post('/atualizarArtigo', function(req, res) {
+	var codArtigo = req.body.CodArtigo;
 	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
-	var imagem = req.query.imagem;
-	var autor = req.query.autor;
+	var imagem = req.body.imagem;
+	var autor = req.body.autor;
 	if(imagem === undefined) imagem = null;
 	if(autor === undefined) autor = null;
 	updateArtigoInfo(codArtigo, autor, imagem, function(resp){
         res.send({ message: resp });   
     });
+});
+
+router.get('/getArtigoInfo', function(req, res) {
+	var codArtigo = req.query.id;
+	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
+	getArtigoInfo(codArtigo, function(resp){
+		res.send({ message: resp });
+	});
 });
 
 router.get('/carrinhocompras', function(req, res) {

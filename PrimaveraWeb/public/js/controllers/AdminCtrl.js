@@ -16,6 +16,26 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
 		if(cod === undefined || cam === undefined || con === undefined)return;
 		var data = {CodArtigo: cod, Campo: cam, Conteudo: con};
 		var url = "http://localhost:49822/api/artigos?CodArtigo=" + cod + "&Campo=" + cam + "&Conteudo=" + con;
+		var urlSql = "http://localhost:8080/api/atualizarArtigo";
+		if(cam === 'Autor' || cam === 'autor') changeAutor(urlSql, {CodArtigo: cod, autor: con});
+		else changePrimavera(url);
+	}
+	
+	function changeAutor(url, body) {
+		$http.post(url,body, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            console.log(response);
+			if(response.data.message === 1) $scope.cancro = "Update Success!";
+			else $scope.cancro = "Error editing product!";
+        }, function (x) {
+			$scope.cancro = "Error editing product!";
+        });
+	}
+	
+	function changePrimavera(url) {
 		$http.get(url, {
             headers: {
                 "content-type" : "application/json"
@@ -23,10 +43,12 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
         }).then(function (response) {
             console.log(response);
 			if(response.data.changed) $scope.cancro = "Update Success!";
+			else $scope.cancro = "Error editing product!";
         }, function (x) {
+			$scope.cancro = "Error editing product!";
         });
 	}
-
+	
     $scope.changeViewAdmin = function (val) {
 
         $scope.showDash = false;

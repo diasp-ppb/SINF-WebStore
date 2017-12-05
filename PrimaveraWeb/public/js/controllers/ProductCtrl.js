@@ -11,6 +11,22 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 		return;
 	}
 	var url = "http://localhost:49822/api/Artigos?id=" + id;
+	var urlsql = "http://localhost:8080/api/getArtigoInfo?id=" + id;
+	
+	$http.get(urlsql, {
+        headers: {
+            "content-type" : "application/json"
+        }
+    }).then(function (response) {
+		if(response.data.message !== undefined){
+			$scope.img = response.data.message.imagem;
+			$scope.autor = response.data.message.autor;
+			if($scope.img === null) $scope.img = srcImg + 'default/750x500.png';
+			else $scope.img = srcImg + 'artigos/' + id + '/' + $scope.img;
+			if($scope.autor === null) $scope.autor = 'Unknown';
+		}
+	}, function (x) {
+	});
 	
 	$http.get(url, {
         headers: {
