@@ -10,21 +10,21 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-keydown="changeSubmition()">
                     <label class="col-md-1 control-label" for="description">Field to edit</label>
                     <div class="col-md-4">
                         <input id="Campo" name="Campo" placeholder="Field desired to edit" class="form-control input-md" required="" type="text"/>
                     </div>
                 </div>
 				
-				<div class="form-group">
+				<div class="form-group" id="contentInput">
                     <label class="col-md-1 control-label" for="description">Content</label>
                     <div class="col-md-4">
                         <textarea id="Conteudo" name="Conteudo" placeholder="Desired content!" class="form-control input-md" required=""></textarea>
                     </div>
                 </div>
-
-                <div class="form-group">
+				
+                <div class="form-group" id="form1">
                     <div class="col-md-1">
                         <button ng-click="updateProduct()" id="singlebutton" name="singlebutton" class="btn btn-primary">Change</button>
                     </div>
@@ -32,5 +32,26 @@
 
             </fieldset>
         </form>
+		<form class="form-horizontal" name="myForm">
+			<fieldset>
+				<div class="form-group" id="imgInput" style="visibility: hidden;">
+                    <label class="col-md-1 control-label" for="description">Image Submition</label>
+                    <div class="col-md-4">
+                        Upload Picture: <input type="file" ngf-select="" ng-model="picFile" name="file" ngf-accept="'image/*'" required="">
+						<i ng-show="myForm.file.$error.required">*required</i>
+                    </div>
+                </div>
+				<div class="form-group" id="form2" style="visibility: hidden;">
+                    <div class="col-md-1">
+                        <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
+						<img ngf-src="picFile" class="thumb">
+						<span class="progress" ng-show="picFile.progress >= 0">
+							<div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'" class="ng-binding"></div>
+						</span>
+						<span ng-show="picFile.result">Upload Successful</span>
+                    </div>
+                </div>
+			</fieldset>
+		</form>
     </div>
 </div>

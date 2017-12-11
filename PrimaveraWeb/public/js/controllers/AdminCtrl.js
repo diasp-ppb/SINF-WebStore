@@ -7,6 +7,22 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
     $scope.showStock= false;
     $scope.showNewP = false;
 	
+	$scope.changeSubmition = function(){
+		var cam = document.getElementById('Campo').value;
+		if(cam === "imagem" || cam === "image" || cam === "Image"){
+			document.getElementById('contentInput').style.visibility = "hidden";
+			document.getElementById('imgInput').style.visibility = "visible";
+			document.getElementById('form2').style.visibility = "visible";
+			document.getElementById('form1').style.visibility = "hidden";
+		}
+		else {
+			document.getElementById('imgInput').style.visibility = "hidden";
+			document.getElementById('form2').style.visibility = "hidden";
+			document.getElementById('form1').style.visibility = "visible";
+			document.getElementById('contentInput').style.visibility = "visible";
+		}
+	}
+	
 	$scope.updateProduct = function () {
 		var cod = document.getElementById('CodArtigo').value;
 		var cam = document.getElementById('Campo').value;
