@@ -54,10 +54,10 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
   return callback(null);
 }
 
-function registerUser(username, password, callback){
-    var sql = 'INSERT INTO users VALUES (?,?,?)';
+function registerUser(id, password, callback){
+    var sql = 'INSERT INTO users VALUES (?,?)';
 
-    db.run(sql, [username,password], function(err) {
+    db.run(sql, [id,password], function(err) {
         if (err) {
             return callback(1);
         }
