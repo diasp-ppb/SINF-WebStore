@@ -65,6 +65,24 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
         });
 	}
 	
+	function displayWarehouses(){
+		var url = "http://localhost:49822/api/armazem";
+		$http.get(url, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            $scope.stockList = response.data.map(
+				function (item) {
+					if(item.Localidade === "" && item.Distrito === "") 
+						item.Localidade = "Unspecified location";	
+				return item;
+			});
+        }, function (x) {
+			
+        });
+	}
+	
     $scope.changeViewAdmin = function (val) {
 
         $scope.showDash = false;
@@ -111,12 +129,7 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
         } else if (val === 'stock') {
             $scope.showStock = true;
             document.getElementById('stock').classList.add('active');
-
-            for(var i = 0; i < 3; i++){
-                var products = [{id: 3, name: 'Darkside',price: '9.99', stk: 2,  img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'},{id: 47, name: 'Nonagon Infinity', price: '0.10', stk: 4,  img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'}];
-                $scope.stockList.push({name: i, products: products});
-            }
-
+			displayWarehouses();
         } else if (val === 'newProd') {
             $scope.showNewP = true;
             document.getElementById('newProd').classList.add('active');
