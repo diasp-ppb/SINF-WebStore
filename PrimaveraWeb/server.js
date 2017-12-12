@@ -55,7 +55,7 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
 }
 
 function registerUser(id, password, callback){
-    var sql = 'INSERT INTO users VALUES (?,?)';
+    var sql = 'INSERT INTO user VALUES (?,?,null)';
 
     db.run(sql, [id,password], function(err) {
         if (err) {
