@@ -56,7 +56,7 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
 var SelectCarrinhoDeComprasByCliente = function(cliente,callback) {
     console.log(cliente);
 var sql = 'Select * from carrinhoDeCompras WHERE Cliente = ?';
-    db.all(sql, [cliente], (err, rows) => {
+    db.all(sql, [cliente], function(err, rows){
         if (err) {
             return callback(1);
         }
@@ -156,6 +156,19 @@ router.post('/atualizarArtigo', function(req, res) {
     });
 });
 
+router.post('/insertInShoppingCart', function(req, res) {
+    var cliente = req.body.cliente;
+    var codArtigo = req.body.codArtigo;
+    var quantity = req.body.qty;
+
+    console.log(cliente);
+
+    InsertInCarrinhoDeCompras(cliente, codArtigo, quantity, function(err){
+        if(!err)
+            res.send("ok");
+    });
+});
+
 router.get('/getArtigoInfo', function(req, res) {
 	var codArtigo = req.query.id;
 	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
@@ -175,6 +188,8 @@ router.get('/listaDesejo', function(req, res) {
        res.json({resp});   
     });
 });
+
+
 
 // more routes for our API will happen here
 

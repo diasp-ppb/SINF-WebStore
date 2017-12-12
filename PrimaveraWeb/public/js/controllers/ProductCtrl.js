@@ -93,9 +93,27 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
     });
 	$scope.amount = 1;	
 	$scope.changePrice = function(val){
-		if($scope.amount === 0 && val < 0)return;
+		if($scope.amount === 1 && val < 0)return;
 		$scope.amount += val;
 		$scope.product.PrecoFinal = $scope.amount * $scope.valIni;
 		$scope.product.PrecoFinal = $scope.product.PrecoFinal.toFixed(2);
+	}
+
+	$scope.addToCart = function(){
+		var url = "http://localhost:8080/api/insertInShoppingCart";
+		var body = {
+			cliente: "badum",
+            codArtigo: id,
+            qty: $scope.amount
+		};
+
+        $http.post(url, body, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+        	console.log(response);
+        }, function (x) {
+        });
 	}
 });
