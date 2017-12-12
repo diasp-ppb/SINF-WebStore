@@ -121,4 +121,23 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
         }, function (x) {
         });
 	}
+
+
+    $scope.addToWhish = function() {
+        var url = "http://localhost:8080/api/addListadoDesejo";
+        var body = {
+            cliente: "badum",
+            codArtigo: id,
+        };
+
+        $http.post(url, body, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            console.log(response);
+        }, function (x) {
+        });
+    }
+
 });

@@ -70,7 +70,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
             }).then(function (response) {
                 console.log(response);
 
-                var product = response.data.resp;
+                var product = response.data;
                 console.log("product", product);
                 if(product != 1) {
                     for(var i = 0; i < product.length; i++){
@@ -118,5 +118,26 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
         }
 
     }
+
+    $scope.removeFromWhish = function(codArtigo) {
+        console.log(id);
+        console.log(codArtigo);
+        var url = "http://localhost:8080/api/deleteDesejo" ;
+
+        var body = {
+            cliente: id,
+            codArtigo: codArtigo,
+        };
+
+        $http.post(url, body, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            console.log(response);
+        }, function (x) {
+        });
+    }
+
 
 });

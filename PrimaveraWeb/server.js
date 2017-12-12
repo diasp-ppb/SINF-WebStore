@@ -28,16 +28,17 @@ let db = new sqlite3.Database('./db/database.db',
     }
     console.log('Connected to the in-memory SQlite database.');
 });
+
 var InsertInListadeDesejo = function(codArtigo,cliente,callback) {
-    
-var sql = 'INSERT INTO listaDoDesejo VALUES ( ?, ?)';
+
+    var sql = 'INSERT INTO listaDoDesejo VALUES ( ?, ?)';
     db.run(sql, [codArtigo,cliente], function(err) {
         if (err) {
             return callback(1);
         }
-    console.log(`A row has been inserted with rowid ${this.lastID}`);
-  });
-  return callback(null);
+        console.log(`A row has been inserted with rowid ${this.lastID}`);
+    });
+    return callback(null);
 }
 
 
@@ -75,16 +76,16 @@ var sql = 'Select * from listaDoDesejo WHERE Cliente = ?';
     });
 }
 
-var DeleteArtigoFromListaDeDesejo = function(cliente,callback) {
+var DeleteArtigoFromListaDeDesejo = function(cliente, codArtigo,callback) {
     
-var sql = 'Delete from listaDoDesejo WHERE cliente = ?';
-    db.run(sql, [cliente], function(err) {
+var sql = 'Delete from listaDoDesejo WHERE cliente = ? and codArtigo = ?';
+    db.run(sql, [cliente,codArtigo], function(err) {
         if (err) {
-            return callback(1);
+            return callback("not ok");
         }
     });
-  return callback(null);
-}
+    return callback("ok");
+};
 
 var DeleteCarrinhoDeComprasByCliente = function(cliente,codArtigo,callback) {
     
@@ -139,8 +140,8 @@ var router = express.Router();              // get an instance of the express Ro
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.post('/deleteDesejo', function(req, res) {
-     DeleteArtigoFromListaDeDesejo(req.query.cliente, function(resp){
-        res.json({ message: resp });   
+     DeleteArtigoFromListaDeDesejo(req.body.cliente,req.body.codArtigo, function(resp){
+        res.send(resp);
      });
 });
 
@@ -192,10 +193,18 @@ router.get('/carrinhocompras', function(req, res) {
 
 router.get('/listaDesejo', function(req, res) {
     SelectListaDeDesejoByCliente(req.query.cliente, function(resp){
-       res.json({resp});   
+       res.send(resp);
     });
 });
 
+
+router.post('/addListadoDesejo', function(req, res) {
+    InsertInListadeDesejo(req.body.codArtigo, req.body.cliente,function (err) {
+        if(!err) {
+            res.send("OK");
+        }
+    })}
+);
 
 
 // more routes for our API will happen here
