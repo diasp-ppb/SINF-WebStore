@@ -913,5 +913,76 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion DocsVenda
+
+        #region Armazem
+
+        public static List<Model.Armazem> GetArmazensInfo()
+        {
+
+            StdBELista objList;
+
+            List<Model.Armazem> armazens = new List<Model.Armazem>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                string select = "SELECT Artigo.Artigo, Artigo.Descricao as ARTD, Iva, PVP1, SUM(ArtigoArmazem.StkActual) as StkLocal,Armazens.Descricao, Armazens.Armazem, Armazens.Localidade, Distritos.Descricao as Dist ";
+                string from1 = "FROM ((( ARTIGO INNER JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo) ";
+                string from2 = "INNER JOIN ARTIGOARMAZEM ON Artigo.Artigo = ArtigoArmazem.Artigo) ";
+                string from3 = "INNER JOIN ARMAZENS ON ArtigoArmazem.Armazem = Armazens.Armazem) ";
+                string from4 = "LEFT JOIN DISTRITOS ON Armazens.Distrito = Distritos.Distrito ";
+                string from5 = "GROUP BY Artigo.Artigo, Artigo.Descricao, Iva, PVP1,Armazens.Descricao, Armazens.Armazem, Armazens.Localidade, Distritos.Descricao ORDER BY Armazens.Armazem";
+                string queryS = select + from1 + from2 + from3 + from4 + from5;
+
+                objList = PriEngine.Engine.Consulta(queryS);
+
+                bool change = false;
+                string armazem = "";
+                Model.Armazem cur = null;
+                bool inicio = true;
+
+                while (!objList.NoFim())
+                {
+                    change = !armazem.Equals(objList.Valor("Armazem"));
+                    armazem = objList.Valor("Armazem");
+                    if(change)
+                    {
+                        if (!inicio)
+                        {
+                            armazens.Add(cur);
+                        }
+                        else
+                        {
+                            inicio = false;
+                        }
+                        Model.Armazem arm = new Model.Armazem();
+                        arm.ArmazemId = objList.Valor("Armazem");
+                        arm.Descricao = objList.Valor("Descricao");
+                        arm.Localidade = objList.Valor("Localidade");
+                        arm.Distrito = objList.Valor("Dist");
+                        arm.Artigos = new List<Model.Artigo>();
+                        cur = arm;
+                    }
+
+                    Model.Artigo art = new Model.Artigo();
+                    art.CodArtigo = objList.Valor("Artigo");
+                    art.Observacoes = objList.Valor("ARTD");
+                    art.STKAtual = objList.Valor("StkLocal");
+                    art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
+                    cur.Artigos.Add(art);
+                    
+                    objList.Seguinte();
+                }
+
+                return armazens;
+
+            }
+            else
+            {
+                return null;
+
+            }
+
+        }
+        #endregion Armazem
     }
 }
