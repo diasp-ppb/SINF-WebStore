@@ -55,7 +55,7 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
 }
 
 function registerUser(id, password, callback){
-    var sql = 'INSERT INTO users VALUES (?,?)';
+    var sql = 'INSERT INTO user VALUES (?,?,null)';
 
     db.run(sql, [id,password], function(err) {
         if (err) {
@@ -190,9 +190,10 @@ router.post('/insertInShoppingCart', function(req, res) {
     });
 });
 
-router.post('/register', function(req, res) {
+router.post('/registry', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
+    console.log("made it here");
     registerUser(username, password, function(err){
         if(!err)
             res.send("ok");
