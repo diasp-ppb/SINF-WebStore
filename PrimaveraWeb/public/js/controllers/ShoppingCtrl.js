@@ -1,4 +1,4 @@
-angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($scope, $location, $http, $route) {
+angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($scope, $location, $http, $route, $ngConfirm) {
     var client = "badum";
 
     var update = function(){
@@ -52,6 +52,23 @@ angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($s
                 console.log("Error");
             }
         }, function (x) {
+        });
+    }
+
+    $scope.confirmation = function(){
+        $ngConfirm({
+            title: 'Please confirm!',
+            content: 'Are you sure you want to proceed?',
+            buttons: {
+                Confirm: {
+                    text: 'Confirm',
+                    btnClass: 'btn-green',
+                    action: function(scope, button){
+                        console.log("Confirmed");
+                    }
+                },
+                Cancel: function(scope, button){}
+            }
         });
     }
 

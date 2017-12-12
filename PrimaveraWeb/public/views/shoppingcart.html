@@ -17,7 +17,7 @@
                             <div class="media">
                                 <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="#">{{shoppingCart.CodArtigo}}</a></h4>
+                                    <h4 class="media-heading"><a href="../product?id={{shoppingCart.CodArtigo}}">{{shoppingCart.CodArtigo}}</a></h4>
                                 </div>
                             </div>
                         </td>
@@ -43,7 +43,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td>
-                            <button id="checkoutButton" type="button" class="btn btn-success" ng-click="open()">
+                            <button id="checkoutButton" type="button" class="btn btn-success" ng-click="confirmation()">
                                 Checkout <span class="glyphicon glyphicon-play"></span>
                             </button>
                         </td>
