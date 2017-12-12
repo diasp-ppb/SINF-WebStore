@@ -179,7 +179,8 @@ router.get('/getArtigoInfo', function(req, res) {
 
 router.get('/carrinhocompras', function(req, res) {
     SelectCarrinhoDeComprasByCliente(req.query.cliente, function(resp){
-       res.json({resp});   
+        console.log(resp);
+        res.send(resp);
     });
 });
 
