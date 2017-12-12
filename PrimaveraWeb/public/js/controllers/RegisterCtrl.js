@@ -1,6 +1,7 @@
 angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window,$location) {
     var vm = this;
     vm.register = register;
+    vm.signin = signin;
 
     function register() {
         vm.dataLoading = true;
@@ -53,24 +54,14 @@ angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope
     }
 
 
-    function login() {
-        vm.dataLoading = true;
-        AuthenticationService.Login(vm.username, vm.password, function (response) {
-            if (response.success) {
-                AuthenticationService.SetCredentials(vm.username, vm.password);
-                $location.path('/');
-            } else {
-                FlashService.Error(response.message);
-                vm.dataLoading = false;
-            }
-        });
-    };
+    function signin() {
+        vu.dataLoading = true;
 
-/*    $scope.signin = function(){
-        $scope.$parent.user = {
-            name: $scope.username
-        };
-        $scope.$parent.logged = true;
-    }*/
-
+        var url = "http://localhost:8080/api/registry";
+        //should verify if user already exists too maybe idk tou com sono
+        $http.post(url, this.user, {
+            headers: {
+                "content-type" : "application/json"
+            }}).then(handleSuccess, handleError('Error creating user'));
+    }
 });

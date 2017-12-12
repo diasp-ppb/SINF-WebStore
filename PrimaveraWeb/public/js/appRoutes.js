@@ -9,7 +9,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 		.when('/signin', {
 			templateUrl: 'views/signin.html',
-			controller: 'NavBarController'	
+			controller: 'NavBarController',
+            controllerAs: 'vu'
 		})
         .when('/register', {
             templateUrl: 'views/register.html',
