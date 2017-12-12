@@ -61,3 +61,15 @@ musicstore/bin
 musicstore/obj/Debug
 musicstore/FirstREST.v12.suo
 PrimaveraWeb/\.idea/workspace\.xml
+
+\.idea/inspectionProfiles/Project_Default\.xml
+
+\.idea/jsLinters/jshint\.xml
+
+\.idea/modules\.xml
+
+\.idea/SINF-WebStore\.iml
+
+\.idea/vcs\.xml
+
+\.idea/workspace\.xml
