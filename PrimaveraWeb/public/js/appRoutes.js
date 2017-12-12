@@ -11,7 +11,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/signin.html',
 			controller: 'NavBarController'	
 		})
-
+        .when('/register', {
+            templateUrl: 'views/register.html',
+            controller: 'NavBarController',
+			controllerAs: 'vm'
+        })
 		.when('/profile', {
 			templateUrl: 'views/profile.html',
 			controller: 'ProfileController'	
