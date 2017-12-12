@@ -1,37 +1,59 @@
-angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($scope, $location, $http) {
+angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($scope, $location, $http, $route) {
+    var client = "badum";
 
-    var urlsql = "http://localhost:8080/api/carrinhocompras?cliente=" + "badum";
-    $scope.total = 0;
+    var update = function(){
+        var urlsql = "http://localhost:8080/api/carrinhocompras?cliente=" + client;
+        $scope.total = 0;
 
-    $scope.shoppingCartList = [];
-    $http.get(urlsql, {
-        headers: {
-            "content-type" : "application/json"
-        }
-    }).then(function (response) {
-        response.data.forEach(function(art){
-            var url = "http://localhost:49822/api/Artigos?id=" + art.CodArtigo;
-            var price;
-            $http.get(url, {
-                headers: {
-                    "content-type" : "application/json"
-                }
-            }).then(function (resp) {
-                price = resp.data.PrecoFinal;
-                var precoFinal = price * art.Quantidade;
-                $scope.total += precoFinal;
+        $scope.shoppingCartList = [];
+        $http.get(urlsql, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            response.data.forEach(function(art){
+                var url = "http://localhost:49822/api/Artigos?id=" + art.CodArtigo;
+                var price;
+                $http.get(url, {
+                    headers: {
+                        "content-type" : "application/json"
+                    }
+                }).then(function (resp) {
+                    price = resp.data.PrecoFinal;
+                    var precoFinal = price * art.Quantidade;
+                    $scope.total += precoFinal;
 
-                var info = {
-                    CodArtigo: art.CodArtigo,
-                    Quantidade: art.Quantidade,
-                    Preco: price.toFixed(2),
-                    PrecoFinal: precoFinal.toFixed(2)
-                }
-                console.log(info);
-                $scope.shoppingCartList.push(info);
-            }, function (x) {
-            });
-        })
-    }, function (x) {
-    });
+                    var info = {
+                        CodArtigo: art.CodArtigo,
+                        Quantidade: art.Quantidade,
+                        Preco: price,
+                        PrecoFinal: precoFinal
+                    }
+                    console.log(info);
+                    $scope.shoppingCartList.push(info);
+                }, function (x) {
+                });
+            })
+        }, function (x) {
+        });
+    }
+
+    $scope.remove = function(product){
+        var urlsql = "http://localhost:8080/api/deleteShoppingCart?cliente=" + client + "&codArtigo=" + product;
+        $http.post(urlsql, {
+            headers: {
+                "content-type" : "application/json"
+            }
+        }).then(function (response) {
+            if(response.data === "ok"){
+                $route.reload();
+            }
+            else{
+                console.log("Error");
+            }
+        }, function (x) {
+        });
+    }
+
+    update();
 })

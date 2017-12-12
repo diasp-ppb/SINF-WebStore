@@ -22,10 +22,10 @@
                             </div>
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>{{shoppingCart.Quantidade}}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{shoppingCart.Preco}}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{shoppingCart.PrecoFinal}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{shoppingCart.Preco.toFixed(2)}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{shoppingCart.PrecoFinal.toFixed(2)}}</strong></td>
                         <td class="col-sm-1 col-md-1">
-                            <button type="button" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger" ng-click="remove(shoppingCart.CodArtigo)">
                                 <span class="glyphicon glyphicon-remove"></span> Remove
                             </button>
                         </td>
@@ -35,7 +35,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong>${{total}}</strong></h3></td>
+                        <td class="text-right"><h3><strong>${{total.toFixed(2)}}</strong></h3></td>
                     </tr>
                     <tr>
                         <td>   </td>

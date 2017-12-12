@@ -86,15 +86,15 @@ var sql = 'Delete from listaDoDesejo WHERE cliente = ?';
   return callback(null);
 }
 
-var DeleteCarrinhoDeComprasByCliente = function(cliente,codArtigo,quantidade,callback) {
+var DeleteCarrinhoDeComprasByCliente = function(cliente,codArtigo,callback) {
     
 var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
     db.run(sql, [cliente,codArtigo], function(err) {
         if (err) {
-            return callback(1);
+            return callback("not ok");
         }
     });
-  return callback(null);
+  return callback("ok");
 }
 
 function getArtigoInfo(codArtigo, callback) {
@@ -142,6 +142,12 @@ router.post('/deleteDesejo', function(req, res) {
      DeleteArtigoFromListaDeDesejo(req.query.cliente, function(resp){
         res.json({ message: resp });   
      });
+});
+
+router.post('/deleteShoppingCart', function(req, res) {
+    DeleteCarrinhoDeComprasByCliente(req.query.cliente, req.query.codArtigo, function(resp){
+        res.send(resp);
+    });
 });
 
 router.post('/atualizarArtigo', function(req, res) {
