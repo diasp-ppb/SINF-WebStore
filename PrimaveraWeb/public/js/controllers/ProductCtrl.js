@@ -25,7 +25,13 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 			else $scope.img = srcImg + 'artigos/' + id + '/' + $scope.img;
 			if($scope.autor === null) $scope.autor = 'Unknown';
 		}
+		else{
+			$scope.img = srcImg + 'default/750x500.png';
+			$scope.autor = 'Unknown';
+		}
 	}, function (x) {
+		$scope.img = srcImg + 'default/750x500.png';
+		$scope.autor = 'Unknown';
 	});
 	
 	$http.get(url, {
@@ -33,7 +39,6 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
             "content-type" : "application/json"
         }
     }).then(function (response) {
-        console.log(response);
 
         $scope.product = response.data;
 		if($scope.product === undefined) {
