@@ -54,6 +54,18 @@ var sql = 'INSERT INTO carrinhoDeCompras VALUES (?,?,?)';
   return callback(null);
 }
 
+function registerUser(username, password, callback){
+    var sql = 'INSERT INTO users VALUES (?,?,?)';
+
+    db.run(sql, [username,password], function(err) {
+        if (err) {
+            return callback(1);
+        }
+        console.log(`A user has been inserted with rowid ${this.lastID}`);
+    });
+    return callback(null);
+}
+
 var SelectCarrinhoDeComprasByCliente = function(cliente,callback) {
     console.log(cliente);
 var sql = 'Select * from carrinhoDeCompras WHERE Cliente = ?';
@@ -134,6 +146,8 @@ function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 	});
 }
 
+
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -171,6 +185,15 @@ router.post('/insertInShoppingCart', function(req, res) {
     console.log(cliente);
 
     InsertInCarrinhoDeCompras(cliente, codArtigo, quantity, function(err){
+        if(!err)
+            res.send("ok");
+    });
+});
+
+router.post('/register', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    registerUser(username, password, function(err){
         if(!err)
             res.send("ok");
     });
