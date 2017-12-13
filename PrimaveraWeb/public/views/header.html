@@ -1,6 +1,6 @@
 <!-- HEADER -->
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="NavBarController">
     <div id="header1">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,13 +24,10 @@
                 </ul>
                 <ul ng-if="logged" class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/nerds">Your Orders</a>
+                        <a href="/profile">{{ loggedUser }}</a>
                     </li>
                     <li>
-                        <a href="/profile">{{ user.name }}</a>
-                    </li>
-                    <li>
-                        <a href="/product">Checkout</a>
+                        <a href="/" ng-click="logOut()">Log Out</a>
                     </li>
                 </ul>
             </div>

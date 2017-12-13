@@ -165,6 +165,10 @@ router.post('/deleteShoppingCart', function(req, res) {
     });
 });
 
+router.post('/updateImage', function (req, res) {
+    console.log(req.body);
+});
+
 router.post('/atualizarArtigo', function(req, res) {
 	var codArtigo = req.body.CodArtigo;
 	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
@@ -173,7 +177,7 @@ router.post('/atualizarArtigo', function(req, res) {
 	if(imagem === undefined) imagem = null;
 	if(autor === undefined) autor = null;
 	updateArtigoInfo(codArtigo, autor, imagem, function(resp){
-        res.send({ message: resp });   
+        res.send({ message: resp });
     });
 });
 
@@ -229,22 +233,27 @@ router.post('/addListadoDesejo', function(req, res) {
     })}
 );
 
-router.get('/usersByName', function(req, res) {
-    SelectUserByUsername(req.query.username, function(resp){
-        res.send(resp);
+router.post('/logIn', function(req,res){
+    userLogIn(req.body, function(resp) {
+        res.send({ message: resp });
     });
 });
 
-var SelectUserByUsername = function(id,callback) {
-    console.log(id);
+var userLogIn = function(body,callback) {
+    var username = body.username;
+    var password = body.password;
     var sql = 'Select * from user WHERE id = ?';
-    db.all(sql, [id], function(err, rows){
+    db.all(sql, [username], function(err, rows){
         if (err) {
-            console.log(not_found);
-            return callback(1);
+            return callback(-1);
         }
-        console.log(found);
-        return callback(rows);
+        if(rows.length != 1){
+            return callback(-1);
+        }
+        else{
+            var ret = rows[0].password === password;
+            return callback(ret);
+        }
     });
 };
 
