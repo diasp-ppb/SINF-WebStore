@@ -1,4 +1,4 @@
-angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $location, $http, $route) {
+angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $cookies, $location, $http, $route) {
         
     // TODO fazer get
     $scope.user = {name: 'User Name', img: 'https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108'};
@@ -12,9 +12,12 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
 	
 	var id = $location.search().id;
 	if(id === undefined) {
-		$scope.validUser = false;
-		$scope.profileInfo = 'Invalid User!';
-		return;
+		id = $cookies.get('newCookie');
+		if(id === undefined){
+			$scope.validUser = false;
+			$scope.profileInfo = 'Invalid User!';
+			return;
+		}
 	}
 	var url = "http://localhost:49822/api/clientes?id=" + id;
 	var url2 = "http://localhost:49822/api/docvenda?codUser=" + id;

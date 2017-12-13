@@ -1,11 +1,11 @@
-angular.module('ProductCtrl', []).controller('ProductController', function($scope, $location, $http) {
+angular.module('ProductCtrl', []).controller('ProductController', function($scope, $cookies, $location, $http) {
     $scope.$parent.products = {category: ['rock', 'hip pop', 'eletronic', 'jazz', 'v4p0r w4v3']};
     $scope.tagline = 'The square root of life is pi!';
     $scope.$parent.productP = true;
 	$scope.validProd = true;
 	var srcImg = 'views/imgs/';
 
-	var client = "SILVA";
+	var client = $cookies.get('newCookie');
 	
 	var id = $location.search().id;
 	if(id === undefined) {
