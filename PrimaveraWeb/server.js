@@ -138,10 +138,10 @@ function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 				return callback(1);
 			});
 		} else {
-            var opcao = (imagem === null || imagem === "") ? 'imagem' : 'autor';
-            var valor = (opcao === imagem) ? imagem : autor;
-			var sql = 'UPDATE ArtigoInfo SET ? = ? WHERE id = ?';
-			db.run(sql, [opcao, valor, codArtigo], function(err) {
+            var opcao = (imagem === null || imagem === "") ? 'autor' : 'imagem';
+            var valor = (opcao === 'imagem') ? imagem : autor;
+			var sql = 'UPDATE ArtigoInfo SET ' + opcao + ' = ? WHERE id = ?';
+			db.run(sql, [valor, codArtigo], function(err) {
 				if (err) {
 					return callback(-3);
 				}
