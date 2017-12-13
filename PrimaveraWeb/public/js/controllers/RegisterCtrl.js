@@ -1,4 +1,4 @@
-angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window,$location) {
+angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window,$cookies) {
     var vm = this;
     vm.register = register;
     vm.signin = signin;
@@ -57,22 +57,18 @@ angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope
     function signin() {
         vu.dataLoading = true;
 
-        var urlsql = "http://localhost:8080/api/usersByName?username=" + this.user.username;
+        var urlsql = "http://localhost:8080/api/usersByName?username=" + this.username;
 
 
         $http.get(urlsql, {
             headers: {
-                "content-type" : "application/json"
+                "content-type": "application/json"
             }
-        }).then(function (response) {
-            if(response.data.message !== undefined){
+        }).success(function (response) {
+            $scope.name = response;
 
-            console.log("worked");
-            }
-            else{
-                console.log("didn't");
-            }
-        }, function (x) {
-        });
+            $cookies.put('newCookie', $scope.name);
+            var userCookie = $cookies.get('newCookie');
+        })
     }
 });

@@ -1,1 +1,1 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl','ProductCtrl', 'NavBarCtrl', 'ProfileCtrl', 'AdminCtrl', 'ShoppingCtlr', 'chart.js', 'cp.ngConfirm']);
+angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl','ProductCtrl', 'NavBarCtrl', 'ProfileCtrl', 'AdminCtrl', 'ShoppingCtlr', 'chart.js', 'cp.ngConfirm', 'ngCookies']);
