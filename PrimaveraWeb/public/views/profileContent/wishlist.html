@@ -5,21 +5,20 @@
                 <thead>
                 <tr>
                     <th>Product</th>
-                    <th class="text-center">Price</th>
+                    <th class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody ng-repeat="prod in wishlistProducts">
                 <tr>
                     <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="/product?id={{prod.id}}"> <img class="media-object" src="{{prod.img}}" > </a>
+                            <a class="thumbnail pull-left" href="/product?id={{prod.id}}"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" > </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="/product?id={{prod.id}}">{{prod.name}}</a></h4>
-                                <span>Status: </span><span ng-if="prod.stock == 'true'" class="text-success"><strong>In Stock</strong></span><span ng-if="prod.stock == 'false'" class="text-danger"><strong>Out of Stock</strong></span>
+                                <h4 class="media-heading"><a href="/product?id={{prod.id}}">{{prod.id}}</a></h4>
                             </div>
                         </div>
                     </td>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>{{prod.price}}€</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"></td>
                     <td class="col-sm-1 col-md-1">
                         <button ng-click="removeFromWhish(prod.id)" type="button" class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> Remove

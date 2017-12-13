@@ -74,7 +74,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
                 console.log("product", product);
                 if(product != 1) {
                     for(var i = 0; i < product.length; i++){
-                        $scope.wishlistProducts.push({id: product[i].codArtigo, name: product[i].Descricao, price: '9.99', stock: 'true', img: 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png'});
+                        $scope.wishlistProducts.push({id: product[i].codArtigo});
                         
                     }
                 }
