@@ -1,5 +1,5 @@
 angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($scope, $cookies, $location, $http, $route, $ngConfirm) {
-    var client = $cookies.get('newCookie');
+    var client = "SILVA";
     $scope.shoppingCartList = [];
 
     var update = function(){
