@@ -1,4 +1,4 @@
-angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window,$cookies) {
+angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window, $cookies) {
     var vm = this;
     vm.register = register;
     vm.signin = signin;
