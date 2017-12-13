@@ -9,6 +9,7 @@
     "angular-chart.js": "^1.1.1",
     "ng-confirm": "^1.1.0",
     "angular-confirm": "angular1-confirm#^1.1.0",
-    "angular-cookies": "^1.6.7"
+    "angular-cookies": "^1.6.7",
+    "angular-upload": "^1.0.12"
   }
 }

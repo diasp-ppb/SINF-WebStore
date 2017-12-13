@@ -1,3 +1,4 @@
+@import "../libs/angular-upload/src/directives/btnUpload.less"; /* or .min.css */
 .navbar-brand{
     font-family: 'Dosis', sans-serif;
 }

@@ -3,6 +3,9 @@ var express        = require('express');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+var fs = require('fs')
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -135,8 +138,10 @@ function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 				return callback(1);
 			});
 		} else {
-			var sql = 'UPDATE ArtigoInfo SET imagem = ?, autor = ? WHERE id = ?';
-			db.run(sql, [imagem, autor, codArtigo], function(err) {
+            var opcao = (imagem === null || imagem === "") ? 'imagem' : 'autor';
+            var valor = (opcao === imagem) ? imagem : autor;
+			var sql = 'UPDATE ArtigoInfo SET ? = ? WHERE id = ?';
+			db.run(sql, [opcao, valor, codArtigo], function(err) {
 				if (err) {
 					return callback(-3);
 				}
@@ -165,8 +170,30 @@ router.post('/deleteShoppingCart', function(req, res) {
     });
 });
 
-router.post('/updateImage', function (req, res) {
-    console.log(req.body);
+router.post('/updateImage', upload.single('logo'), function (req, res) {
+    var tmp_path = req.file.path;
+
+    /** The original name of the uploaded file
+     stored in the variable "originalname". **/
+    var target_path = 'public/views/imgs/artigos/' + req.query.id + "/" + req.file.originalname;
+    if (!fs.existsSync('public/views/imgs/artigos/' + req.query.id)){
+        fs.mkdirSync('public/views/imgs/artigos/' + req.query.id);
+    }
+
+
+    /** A better way to copy the uploaded file. **/
+    var src = fs.createReadStream(tmp_path);
+    var dest = fs.createWriteStream(target_path);
+    src.pipe(dest);
+
+
+    src.on('end', function() {
+        fs.unlinkSync(tmp_path);
+        updateArtigoInfo(req.query.id, null, req.file.originalname, function(resp){
+            res.send({ message: resp });
+        });
+    });
+    src.on('error', function(err) { res.render('error'); });
 });
 
 router.post('/atualizarArtigo', function(req, res) {
