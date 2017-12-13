@@ -1,4 +1,4 @@
-module.exports = function(app) {o
+module.exports = function(app) {
 
 	// server routes ===========================================================
 	// handle things like api calls
