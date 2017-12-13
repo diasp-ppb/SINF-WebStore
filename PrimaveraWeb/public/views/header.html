@@ -14,7 +14,7 @@
                         <input type="text" class="form-control" size="60" placeholder="Search">
                     </div>
                 </form>
-                <ul ng-if="!logged" class="nav navbar-nav navbar-right">
+                <ul ng-if="!valuehtml" class="nav navbar-nav navbar-right">
                     <li>
                         <a href="/signin">Sign In</a>
                     </li>
@@ -22,7 +22,7 @@
                         <a href="/register">Sign Up</a>
                     </li>
                 </ul>
-                <ul ng-if="logged" class="nav navbar-nav navbar-right">
+                <ul ng-if="valuehtml" class="nav navbar-nav navbar-right">
                     <li>
                         <a href="/shoppingCart" class="fa fa-shopping-cart"  style="font-size:24px;"></a>
                     </li>
