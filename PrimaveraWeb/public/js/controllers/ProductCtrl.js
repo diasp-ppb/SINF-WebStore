@@ -4,6 +4,8 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
     $scope.$parent.productP = true;
 	$scope.validProd = true;
 	var srcImg = 'views/imgs/';
+
+	var client = "SILVA";
 	
 	var id = $location.search().id;
 	if(id === undefined) {
@@ -107,7 +109,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 	$scope.addToCart = function(){
 		var url = "http://localhost:8080/api/insertInShoppingCart";
 		var body = {
-			cliente: "SILVA",
+			cliente: client,
             codArtigo: id,
             qty: $scope.amount
 		};
@@ -126,7 +128,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
     $scope.addToWhish = function() {
         var url = "http://localhost:8080/api/addListadoDesejo";
         var body = {
-            cliente: "SILVA",
+            cliente: client,
             codArtigo: id,
         };
 

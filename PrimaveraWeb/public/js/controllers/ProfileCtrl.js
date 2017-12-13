@@ -1,4 +1,4 @@
-angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $location, $http) {
+angular.module('ProfileCtrl', []).controller('ProfileController', function ($scope, $location, $http, $route) {
         
     // TODO fazer get
     $scope.user = {name: 'User Name', img: 'https://d3n8a8pro7vhmx.cloudfront.net/themes/57d734b533893fddfc000001/attachments/original/1473881108/default-profile-pic.jpg?1473881108'};
@@ -135,6 +135,7 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function ($sco
             }
         }).then(function (response) {
             console.log(response);
+            $route.reload();
         }, function (x) {
         });
     }
