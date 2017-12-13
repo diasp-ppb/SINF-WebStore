@@ -110,6 +110,17 @@ var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ? AND CodArtigo = ?';
   return callback("ok");
 }
 
+var DeleteAllCarrinhoDeComprasByCliente = function(cliente,callback) {
+
+    var sql = 'Delete from carrinhoDeCompras WHERE Cliente = ?';
+    db.run(sql, [cliente], function(err) {
+        if (err) {
+            return callback("not ok");
+        }
+    });
+    return callback("ok");
+}
+
 function getArtigoInfo(codArtigo, callback) {
 	var getArtigo = 'SELECT * FROM ArtigoInfo WHERE id = ?';
 	db.all(getArtigo, [codArtigo], (err, rows) => {
@@ -171,6 +182,12 @@ router.post('/deleteDesejo', function(req, res) {
 
 router.post('/deleteShoppingCart', function(req, res) {
     DeleteCarrinhoDeComprasByCliente(req.query.cliente, req.query.codArtigo, function(resp){
+        res.send(resp);
+    });
+});
+
+router.post('/deleteAllShoppingCart', function(req, res) {
+    DeleteAllCarrinhoDeComprasByCliente(req.query.cliente, function(resp){
         res.send(resp);
     });
 });

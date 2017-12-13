@@ -107,7 +107,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 	$scope.addToCart = function(){
 		var url = "http://localhost:8080/api/insertInShoppingCart";
 		var body = {
-			cliente: "badum",
+			cliente: "SILVA",
             codArtigo: id,
             qty: $scope.amount
 		};
@@ -126,7 +126,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
     $scope.addToWhish = function() {
         var url = "http://localhost:8080/api/addListadoDesejo";
         var body = {
-            cliente: "badum",
+            cliente: "SILVA",
             codArtigo: id,
         };
 
