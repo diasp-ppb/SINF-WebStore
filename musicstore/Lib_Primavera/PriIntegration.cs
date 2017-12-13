@@ -348,6 +348,45 @@ namespace FirstREST.Lib_Primavera
 
         }
 
+        public static List<Model.Artigo> Pesquisa(String text)
+        {
+            StdBELista objList;
+
+            Model.Artigo art = new Model.Artigo();
+            List<Model.Artigo> listArts = new List<Model.Artigo>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                string select = "SELECT Artigo.Artigo, Artigo.Descricao, PVP1, Iva ";
+                string from1 = "FROM (ARTIGO LEFT JOIN ARTIGOMOEDA ON Artigo.Artigo = ArtigoMoeda.Artigo)";
+                string from2 = "LEFT JOIN FAMILIAS ON Artigo.Familia = Familias.Familia ";
+                string from3 = "LEFT JOIN SUBFAMILIAS ON Artigo.Familia = SubFamilias.Familia AND Artigo.SubFamilia = SubFamilias.SubFamilia ";
+                string whereS = "WHERE Artigo.Artigo LIKE '%" + text + "%' OR Artigo.Descricao LIKE '%" + text + "%' OR Familias.Descricao LIKE '%" + text + "%' OR SubFamilias.Descricao LIKE '%" + text + "%';";
+                string queryS = select + from1 + from2 + from3 + whereS;
+
+                objList = PriEngine.Engine.Consulta(queryS);
+
+                while (!objList.NoFim())
+                {
+                    art = new Model.Artigo();
+                    art.CodArtigo = objList.Valor("artigo");
+                    art.DescArtigo = objList.Valor("descricao");
+                    art.PrecoFinal = Convert.ToDouble(objList.Valor("PVP1")) * (1 + Convert.ToDouble(objList.Valor("Iva")) * 0.01);
+
+                    listArts.Add(art);
+                    objList.Seguinte();
+                }
+
+                return listArts;
+
+            }
+            else
+            {
+                return null;
+
+            }
+        }
+
         public static Model.Artigo GetArtigoFull(string id)
         {
 

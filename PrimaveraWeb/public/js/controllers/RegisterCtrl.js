@@ -1,4 +1,4 @@
-angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window,$location) {
+angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope, $http, $window, $cookies) {
     var vm = this;
     vm.register = register;
     vm.signin = signin;
@@ -77,11 +77,18 @@ angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope
     function signin() {
         vu.dataLoading = true;
 
-        var url = "http://localhost:8080/api/registry";
-        //should verify if user already exists too maybe idk tou com sono
-        $http.post(url, this.user, {
+        var urlsql = "http://localhost:8080/api/usersByName?username=" + this.username;
+
+
+        $http.get(urlsql, {
             headers: {
-                "content-type" : "application/json"
-            }}).then(handleSuccess, handleError('Error creating user'));
+                "content-type": "application/json"
+            }
+        }).success(function (response) {
+            $scope.name = response;
+
+            $cookies.put('newCookie', $scope.name);
+            var userCookie = $cookies.get('newCookie');
+        })
     }
 });
