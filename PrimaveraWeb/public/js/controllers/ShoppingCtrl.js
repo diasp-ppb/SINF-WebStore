@@ -80,8 +80,8 @@ angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($s
         var itensToBuy = [];
         for(var i = 0; i < $scope.shoppingCartList.length; i++){
             var json = {
-              "CodArtigo": $scope.shoppingCartList[i].CodArtigo,
-              "Quantidade": $scope.shoppingCartList[i].Quantidade
+                "CodArtigo": $scope.shoppingCartList[i].CodArtigo,
+                "Quantidade": $scope.shoppingCartList[i].Quantidade
             };
             itensToBuy.push(json);
         }
@@ -91,7 +91,7 @@ angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($s
         var req = {
             "Entidade": client,
             "Data": timestamp,
-            "Serie": "LMAO",
+            "Serie": "2017",
             "LinhasDoc": itensToBuy
         };
         console.log(req);
