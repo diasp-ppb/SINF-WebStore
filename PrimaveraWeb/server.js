@@ -262,7 +262,7 @@ var SelectUserByUsername = function(id,callback) {
         console.log(found);
         return callback(rows);
     });
-}
+};
 
 // more routes for our API will happen here
 
