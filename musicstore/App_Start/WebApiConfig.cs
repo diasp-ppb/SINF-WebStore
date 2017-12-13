@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace FirstREST
 {
@@ -9,6 +10,8 @@ namespace FirstREST
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("*", "Content-Type, content-type", "GET, POST, PUT, DELETE, OPTIONS");
+            config.EnableCors(cors);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

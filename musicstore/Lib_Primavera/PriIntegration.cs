@@ -798,8 +798,8 @@ namespace FirstREST.Lib_Primavera
                     dv.Estado = "Enviado";
                     string carga = objListCab.Valor("DataCarga");
                     string descarga = objListCab.Valor("DataDescarga");
-                    if (carga == null || carga.Equals("")) dv.Estado = "Processing";
-                    else if (descarga == null || descarga.Equals("")) dv.Estado = "Sending";
+                    if (carga == null || carga.Equals("")) dv.Estado = "Em Processamento";
+                    else if (descarga == null || descarga.Equals("")) dv.Estado = "Em Envio";
                     dv.TotalMerc = Convert.ToDouble(objListCab.Valor("TotalMerc"));
                     dv.Serie = objListCab.Valor("Serie");
                     objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
