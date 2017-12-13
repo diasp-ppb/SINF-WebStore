@@ -3,6 +3,9 @@ var express        = require('express');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+var fs = require('fs')
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -146,8 +149,10 @@ function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 				return callback(1);
 			});
 		} else {
-			var sql = 'UPDATE ArtigoInfo SET imagem = ?, autor = ? WHERE id = ?';
-			db.run(sql, [imagem, autor, codArtigo], function(err) {
+            var opcao = (imagem === null || imagem === "") ? 'autor' : 'imagem';
+            var valor = (opcao === 'imagem') ? imagem : autor;
+			var sql = 'UPDATE ArtigoInfo SET ' + opcao + ' = ? WHERE id = ?';
+			db.run(sql, [valor, codArtigo], function(err) {
 				if (err) {
 					return callback(-3);
 				}
@@ -192,6 +197,32 @@ router.post('/deleteAllShoppingCart', function(req, res) {
     });
 });
 
+router.post('/updateImage', upload.single('logo'), function (req, res) {
+    var tmp_path = req.file.path;
+
+    /** The original name of the uploaded file
+     stored in the variable "originalname". **/
+    var target_path = 'public/views/imgs/artigos/' + req.query.id + "/" + req.file.originalname;
+    if (!fs.existsSync('public/views/imgs/artigos/' + req.query.id)){
+        fs.mkdirSync('public/views/imgs/artigos/' + req.query.id);
+    }
+
+
+    /** A better way to copy the uploaded file. **/
+    var src = fs.createReadStream(tmp_path);
+    var dest = fs.createWriteStream(target_path);
+    src.pipe(dest);
+
+
+    src.on('end', function() {
+        fs.unlinkSync(tmp_path);
+        updateArtigoInfo(req.query.id, null, req.file.originalname, function(resp){
+            res.send({ message: resp });
+        });
+    });
+    src.on('error', function(err) { res.render('error'); });
+});
+
 router.post('/atualizarArtigo', function(req, res) {
 	var codArtigo = req.body.CodArtigo;
 	if (codArtigo === undefined || codArtigo === null) return res.send({message: 0});
@@ -200,7 +231,7 @@ router.post('/atualizarArtigo', function(req, res) {
 	if(imagem === undefined) imagem = null;
 	if(autor === undefined) autor = null;
 	updateArtigoInfo(codArtigo, autor, imagem, function(resp){
-        res.send({ message: resp });   
+        res.send({ message: resp });
     });
 });
 
@@ -256,9 +287,9 @@ router.post('/addListadoDesejo', function(req, res) {
     })}
 );
 
-router.get('/usersByName', function(req, res) {
-    SelectUserByUsername(req.query.username, function(resp){
-        res.send(resp);
+router.post('/logIn', function(req,res){
+    userLogIn(req.body, function(resp) {
+        res.send({ message: resp });
     });
 });
 
@@ -268,16 +299,21 @@ router.get('/search', function(req, res) {
     });
 });
 
-var SelectUserByUsername = function(id,callback) {
-    console.log(id);
+var userLogIn = function(body,callback) {
+    var username = body.username;
+    var password = body.password;
     var sql = 'Select * from user WHERE id = ?';
-    db.all(sql, [id], function(err, rows){
+    db.all(sql, [username], function(err, rows){
         if (err) {
-            console.log(not_found);
-            return callback(1);
+            return callback(-1);
         }
-        console.log(found);
-        return callback(rows);
+        if(rows.length != 1){
+            return callback(-1);
+        }
+        else{
+            var ret = rows[0].password === password;
+            return callback(ret);
+        }
     });
 };
 

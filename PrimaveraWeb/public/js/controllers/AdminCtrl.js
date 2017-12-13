@@ -1,4 +1,4 @@
-angular.module('AdminCtrl', []).controller('AdminController', function ($scope, $http) {
+angular.module('AdminCtrl', ['lr.upload']).controller('AdminController', function ($scope, $http) {
     $scope.content = "Dashboard";
 
     $scope.showDash = true;
@@ -6,9 +6,11 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
     $scope.showWarehouse = false;
     $scope.showStock= false;
     $scope.showNewP = false;
+    $scope.codArtigo = null;
 	
 	$scope.changeSubmition = function(){
 		var cam = document.getElementById('Campo').value;
+		$scope.codArtigo = document.getElementById('CodArtigo').value;
 		if(cam === "imagem" || cam === "image" || cam === "Image"){
 			document.getElementById('contentInput').style.visibility = "hidden";
 			document.getElementById('imgInput').style.visibility = "visible";
@@ -36,7 +38,7 @@ angular.module('AdminCtrl', []).controller('AdminController', function ($scope, 
 		if(cam === 'Autor' || cam === 'autor') changeAutor(urlSql, {CodArtigo: cod, autor: con});
 		else changePrimavera(url);
 	}
-	
+
 	function changeAutor(url, body) {
 		$http.post(url,body, {
             headers: {

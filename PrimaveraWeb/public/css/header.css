@@ -1,3 +1,4 @@
+@import "../libs/angular-upload/src/directives/btnUpload.less"; /* or .min.css */
 .navbar-brand{
     font-family: 'Dosis', sans-serif;
 }
@@ -45,4 +46,9 @@
     display: block;
     text-align: center;
     padding-right: 36px;
+}
+. fa {
+    text-align: center;
+    font-size:36px;
+    color:white;
 }
