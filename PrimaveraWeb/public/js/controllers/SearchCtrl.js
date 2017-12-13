@@ -9,12 +9,22 @@ angular.module('SearchCtrl', []).controller('SearchController', function ($scope
     var url = "http://localhost:49822/api/Artigos?text=" + searchText;
     var urlsql = "http://localhost:8080/api/search?autor=" + searchText;
 
+    var srcImg = 'views/imgs/';
+
     $http.get(url, {
         headers: {
             "content-type" : "application/json"
         }
     }).then(function (response) {
-        $scope.product = response.data;
+        $scope.product = response.data.map(function (artigo) {
+            console.log(artigo);
+            if (artigo.ImgURL === null || artigo.ImgURL === "") {
+                artigo.ImgURL = srcImg + 'default/500x300.png';
+            } else {
+                artigo.ImgURL = srcImg + 'artigos/' + artigo.CodArtigo + '/' + artigo.ImgURL;
+            }
+            return artigo;
+        });
 
         $http.get(urlsql, {
             headers: {
@@ -38,6 +48,13 @@ angular.module('SearchCtrl', []).controller('SearchController', function ($scope
                     if (response.data !== undefined) {
                         var artigo = response.data;
                         artigo.CodArtigo = id.id;
+
+                        if (artigo.ImgURL === null || artigo.ImgURL === "") {
+                            artigo.ImgURL = srcImg + 'default/500x300.png';
+                        } else {
+                            artigo.ImgURL = srcImg + 'artigos/' + artigo.CodArtigo + '/' + artigo.ImgURL;
+                        }
+
                         $scope.product.push(artigo);
                     }
                 });
