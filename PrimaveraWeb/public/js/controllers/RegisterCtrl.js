@@ -16,23 +16,28 @@ angular.module('RegisterCtrl', []).controller('RegisterController', function ($s
             "Morada": this.user.morada
         };
 
+        $scope.user = this.user;
+
         $http.post(url, body, {
             headers: {
                 "Content-Type" : "application/json"
             }
         }).then(function (response) {
             console.log(response);
+
+            var urlsql = "http://localhost:8080/api/registry";
+            //should verify if user already exists too maybe idk tou com sono
+            console.log($scope.user);
+            $http.post(urlsql, $scope.user, {
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(handleSuccess, handleError('Error creating user'));
+
         }, function (x) {
         });
 
-        var urlsql = "http://localhost:8080/api/registry";
-        //should verify if user already exists too maybe idk tou com sono
-        console.log(this.user);
-        $http.post(urlsql, this.user, {
-            headers: {
-                "content-type": "application/json"
-            }
-        }).then(handleSuccess, handleError('Error creating user'));
+
 
     }
 

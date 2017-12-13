@@ -87,11 +87,11 @@ angular.module('ShoppingCtlr', []).controller('ShoppingController', function ($s
         }
         console.log(itensToBuy);
         var d = new Date();
-        var timestamp = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "T" + d.getHours + ":" + d.getMinutes() + ":" + d.getSeconds();
+        var timestamp = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         var req = {
             "Entidade": client,
             "Data": timestamp,
-            "Serie": "2017",
+            "Serie": "LMAO",
             "LinhasDoc": itensToBuy
         };
         console.log(req);
