@@ -146,6 +146,16 @@ function updateArtigoInfo(codArtigo, autor, imagem, callback) {
 	});
 }
 
+function searchArtigos(autor, callback) {
+    var getArtigos = "SELECT id FROM ArtigoInfo WHERE autor LIKE '%" + autor + "%';";
+    db.all(getArtigos, [], (err, rows) => {
+        if (err) {
+            return callback(err);
+        }
+        return callback(rows);
+    });
+}
+
 
 
 // ROUTES FOR OUR API
@@ -231,6 +241,12 @@ router.post('/addListadoDesejo', function(req, res) {
 
 router.get('/usersByName', function(req, res) {
     SelectUserByUsername(req.query.username, function(resp){
+        res.send(resp);
+    });
+});
+
+router.get('/search', function(req, res) {
+    searchArtigos(req.query.autor, function (resp) {
         res.send(resp);
     });
 });
