@@ -193,7 +193,6 @@ router.post('/insertInShoppingCart', function(req, res) {
 router.post('/registry', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log("made it here");
     registerUser(username, password, function(err){
         if(!err)
             res.send("ok");
@@ -230,6 +229,24 @@ router.post('/addListadoDesejo', function(req, res) {
     })}
 );
 
+router.get('/usersByName', function(req, res) {
+    SelectUserByUsername(req.query.username, function(resp){
+        res.send(resp);
+    });
+});
+
+var SelectUserByUsername = function(id,callback) {
+    console.log(id);
+    var sql = 'Select * from user WHERE id = ?';
+    db.all(sql, [id], function(err, rows){
+        if (err) {
+            console.log(not_found);
+            return callback(1);
+        }
+        console.log(found);
+        return callback(rows);
+    });
+}
 
 // more routes for our API will happen here
 

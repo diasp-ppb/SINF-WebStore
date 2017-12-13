@@ -57,11 +57,22 @@ angular.module('NavBarCtrl', []).controller('NavBarController', function ($scope
     function signin() {
         vu.dataLoading = true;
 
-        var url = "http://localhost:8080/api/registry";
-        //should verify if user already exists too maybe idk tou com sono
-        $http.post(url, this.user, {
+        var urlsql = "http://localhost:8080/api/usersByName?username=" + this.user.username;
+
+
+        $http.get(urlsql, {
             headers: {
                 "content-type" : "application/json"
-            }}).then(handleSuccess, handleError('Error creating user'));
+            }
+        }).then(function (response) {
+            if(response.data.message !== undefined){
+
+            console.log("worked");
+            }
+            else{
+                console.log("didn't");
+            }
+        }, function (x) {
+        });
     }
 });
