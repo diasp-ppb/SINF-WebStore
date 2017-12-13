@@ -44,6 +44,11 @@ namespace FirstREST.Controllers
 
         }
 
+        public IEnumerable<Lib_Primavera.Model.Artigo> GetRelated(String text)
+        {
+            return Lib_Primavera.PriIntegration.Pesquisa(text);
+        }
+
         // GET api/artigo/5    
         public Artigo Get(string id)
         {
