@@ -16,7 +16,7 @@ angular.module('ProductCtrl', []).controller('ProductController', function($scop
 	$http.get(urlsql, {
         headers: {
             "content-type" : "application/json"
-        }
+       	 }
     }).then(function (response) {
 		if(response.data.message !== undefined){
 			$scope.img = response.data.message.imagem;
