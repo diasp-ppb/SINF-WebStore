@@ -3,7 +3,6 @@ angular.module('AdminCtrl', ['lr.upload']).controller('AdminController', functio
 
     $scope.showDash = true;
     $scope.showSales = false;
-    $scope.showWarehouse = false;
     $scope.showStock= false;
     $scope.showNewP = false;
     $scope.codArtigo = null;
@@ -89,7 +88,6 @@ angular.module('AdminCtrl', ['lr.upload']).controller('AdminController', functio
 
         $scope.showDash = false;
         $scope.showSales = false;
-        $scope.showWarehouse = false;
         $scope.showStock= false;
         $scope.showNewP = false;
 
@@ -97,7 +95,6 @@ angular.module('AdminCtrl', ['lr.upload']).controller('AdminController', functio
 
         document.getElementById('dashboard').classList.remove('active');
         document.getElementById('sales').classList.remove('active');
-        document.getElementById('warehouse').classList.remove('active');
         document.getElementById('stock').classList.remove('active');
         document.getElementById('newProd').classList.remove('active');
 
@@ -122,11 +119,6 @@ angular.module('AdminCtrl', ['lr.upload']).controller('AdminController', functio
 
             }, function (x) {
             });
-
-        }else if (val === 'warehouse') {
-            $scope.content = "Warehouses";
-            $scope.showWarehouse = true;
-            document.getElementById('warehouse').classList.add('active');
 
         } else if (val === 'stock') {
             $scope.showStock = true;

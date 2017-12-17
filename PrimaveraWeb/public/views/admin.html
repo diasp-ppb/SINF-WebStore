@@ -23,14 +23,9 @@
                                 <i class="glyphicon glyphicon-th-list"></i>Sales
                             </a>
                         </li>
-                        <li id="warehouse" class="profileMenu">
-                            <a ng-click="changeViewAdmin('warehouse')" href="#">
-                                <i class="glyphicon glyphicon-ok"></i>Warehouses
-                            </a>
-                        </li>
                         <li id="stock" class="profileMenu">
                             <a ng-click="changeViewAdmin('stock')" href="#">
-                                <i class="glyphicon glyphicon-shopping-cart"></i>Stock
+                                <i class="glyphicon glyphicon-ok"></i>Stock
                             </a>
                         </li>
                         <li id="newProd" class="profileMenu">
@@ -53,9 +48,6 @@
                     <canvas id="doughnut" class="chart chart-doughnut"
                             chart-data="data" chart-labels="labels">
                     </canvas>
-                </div>
-                <div ng-show="showWarehouse">
-                    <h1 class="profile-content-title">{{content}}</h1>
                 </div>
                 <div ng-show="showStock">
                     <h1 class="profile-content-title">Stock Management Board</h1>
